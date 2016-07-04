@@ -21,7 +21,6 @@ def anominize_path(original, new):
 
 
 
-
 original_path = sys.argv[1]
 new_path = sys.argv[2]
 anominize_path(original_path, new_path)

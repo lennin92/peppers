@@ -65,12 +65,10 @@ def extract_dicom_data(dicom_path, data_to_get):
     shape = __dicom__.pixel_array.shape
 
     image_2d = []
-    max_val = 0
     for row in __dicom__.pixel_array:
         pixels = []
         for col in row:
             pixels.append(col)
-            if col > max_val: max_val = col
         image_2d.append(pixels)
     return (shape[0], shape[1], image_2d, extract_data(dicom_file, data_to_get))
 
@@ -119,3 +117,6 @@ def dicom_anonimizer(original_dicom_path, new_dicom_path, data_to_anonimize=DEFA
     __dicom__.save_as(new_dicom)
 
 
+def get_dicom_array(dicom_path):
+    dicom_data = extract_dicom_data(dicom_path)
+    return dicom_data[2]
