@@ -87,3 +87,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+#CAFFE MODELS
+*.caffemodel
+*.solverstate
+.caffemodel
+.solverstate
