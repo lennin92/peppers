@@ -1,4 +1,4 @@
-name: "xxxxxx"
+name: "peppers"
 layer {
   name: "image"
   type: "HDF5Data"

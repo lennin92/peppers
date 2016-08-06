@@ -15,3 +15,8 @@ BASE_PATH = '/run/media/lennin92/Seagate Backup Plus Drive/DICOM/'
 LOG_FILE_PATH = '/run/media/lennin92/Seagate Backup Plus Drive/DICOM/log.txt'
 
 BATCH_SIZE = 400
+
+CAFFE_PATH = '~/caffe/python'
+
+MODEL_FILE = '/home/lennin/peppers/model/deploy.prototxt'
+PRETRAINED = '/home/lennin/peppers/model/caffe_iter_900.caffemodel'
