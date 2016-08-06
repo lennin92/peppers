@@ -9,7 +9,7 @@ display: 20
 max_iter: 4000
 momentum: 0.9
 weight_decay: 0.0005
-snapshot: 900
+snapshot: 200
 snapshot_prefix: "caffe"
 solver_mode: CPU
 type: "Nesterov"
