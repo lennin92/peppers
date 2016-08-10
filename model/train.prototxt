@@ -182,4 +182,7 @@ layer {
   bottom: "improd3"
   bottom: "label"
   top: "loss2"
+  include {
+    phase: TEST
+  }
 }
