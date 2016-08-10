@@ -26,8 +26,8 @@ def processPNG(lines, train_path, trainlist_path):
         X = np.zeros((len(lines2), 1, SIZE, SIZE), dtype='f4')
         y = np.zeros((len(lines2), 1), dtype='f4')
         for i, l in enumerate(lines2):
-            img = cv2.imread(IMAGE_FILE, 0)
-            img_blobinp = img[np.newaxis, np.newaxis, :, :]
+            img = cv2.imread(l[0], 0)
+            img.resize((1, SIZE, SIZE, ))
             # you may apply other input transformations here...
             X[i] = img
             y[i] = int(l[1])
@@ -57,8 +57,8 @@ def processCSV(csvpath, basepath, train_path, trainlist_path,
         pngpath = os.path.join(TMP_PNG_PATH, row[0].replace("/",".").replace("\\","."))
         dcmpath = os.path.join(basepath, row[0])
         try:
-            print("GENERATING PNG FOR %s"%(dcmpath))
-            log.info("GENERATING PNG FOR %s"%(dcmpath))
+            # print("GENERATING PNG FOR %s"%(dcmpath))
+            # log.info("GENERATING PNG FOR %s"%(dcmpath))
             dicom_to_png(dcmpath, pngpath)
             if (random.uniform(0.0,1)<0.7):
                 count_train = count_train +1
@@ -66,10 +66,10 @@ def processCSV(csvpath, basepath, train_path, trainlist_path,
             else:
                 count_test = count_test +1
                 pngs_test.append([pngpath, row[1]])
-            print("GENERATED PNG %s"%(pngpath))
-            log.info("GENERATED PNG %s"%(pngpath))
+            # print("GENERATED PNG %s"%(pngpath))
+            # log.info("GENERATED PNG %s"%(pngpath))
             count = count + 1
-            if count%50==0:
+            if count%150==0:
                 print("GENERATED %d, TRAIN: %d, TEST %d"%(count, count_train, count_test))
                 log.info("GENERATED %d, TRAIN: %d, TEST %d"%(count, count_train, count_test))
         except Exception, e:
@@ -115,8 +115,8 @@ def pngCsvToH5(csvpath, h5path, h5list):
 
 if __name__=="__main__":
     # processCSV(CSV_PATH, BASE_PATH, TRAIN_PATH,
-    #           TRAINLIST_PATH, TEST_PATH, TESTLIST_PATH,
-    #           CSV_TRAINPNG_PATH, CSV_TESTPNG_PATH)
+    #        TRAINLIST_PATH, TEST_PATH, TESTLIST_PATH,
+    #        CSV_TRAINPNG_PATH, CSV_TESTPNG_PATH)
     print("CREATING TRAINING H5 PATH")
     log.info("CREATING TRAINING H5 PATH")
     pngCsvToH5(CSV_TRAINPNG_PATH, TRAIN_PATH, TRAINLIST_PATH)

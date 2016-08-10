@@ -5,8 +5,8 @@ layer {
   top: "image"
   top: "label"
   hdf5_data_param {
-    source: "D:/DICOM/caffe/trainlist.h5.txt"
-    batch_size: 64
+    source: "trainlist.h5.txt"
+    batch_size: 125
   }
 }
 layer {
@@ -23,8 +23,8 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 96
-    kernel_size: 11
+    num_output: 75
+    kernel_size: 8
     stride: 4
     weight_filler {
       type: "gaussian"
@@ -59,9 +59,36 @@ layer {
   }
 }
 layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 165
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
   name: "norm2"
   type: "LRN"
-  bottom: "pool1"
+  bottom: "conv2"
   top: "norm2"
   lrn_param {
     local_size: 5
@@ -83,9 +110,9 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 384
+    num_output: 427
     pad: 1
-    kernel_size: 3
+    kernel_size: 4
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -143,9 +170,16 @@ layer {
   }
 }
 layer {
-  name: "loss"
+  name: "loss1"
   type: "SoftmaxWithLoss"
   bottom: "improd3"
   bottom: "label"
-  top: "loss"
+  top: "loss1"
+}
+layer {
+  name: "loss2"
+  type: "SigmoidCrossEntropyLoss"
+  bottom: "improd3"
+  bottom: "label"
+  top: "loss2"
 }

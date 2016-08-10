@@ -4,12 +4,12 @@ base_lr: 0.001
 lr_policy: "step"
 gamma: 0.1
 # stepsize should also be lower, as we're closer to being done
-stepsize: 1000
+stepsize: 700
 display: 20
 max_iter: 4000
 momentum: 0.9
 weight_decay: 0.0005
-snapshot: 200
+snapshot: 400
 snapshot_prefix: "caffe"
 solver_mode: CPU
 type: "Nesterov"

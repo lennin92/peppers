@@ -5,8 +5,8 @@ layer {
   top: "image"
   top: "label"
   hdf5_data_param {
-    source: "D:/DICOM/caffe/testlist.h5.txt"
-    batch_size: 64
+    source: "testlist.h5.txt"
+    batch_size: 125
   }
 }
 layer {
@@ -23,8 +23,8 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 96
-    kernel_size: 11
+    num_output: 75
+    kernel_size: 8
     stride: 4
     weight_filler {
       type: "gaussian"
@@ -83,9 +83,9 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 384
+    num_output: 427
     pad: 1
-    kernel_size: 3
+    kernel_size: 4
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -143,9 +143,16 @@ layer {
   }
 }
 layer {
-  name: "loss"
+  name: "loss1"
   type: "SoftmaxWithLoss"
   bottom: "improd3"
   bottom: "label"
-  top: "loss"
+  top: "loss1"
+}
+layer {
+  name: "loss1"
+  type: "SoftmaxWithLoss"
+  bottom: "improd3"
+  bottom: "label"
+  top: "loss1"
 }

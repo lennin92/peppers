@@ -10,17 +10,9 @@ layer {
   type: "Convolution"
   bottom: "image"
   top: "conv1"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
-    num_output: 96
-    kernel_size: 11
+    num_output: 75
+    kernel_size: 8
     stride: 4
     weight_filler {
       type: "gaussian"
@@ -70,18 +62,10 @@ layer {
   type: "Convolution"
   bottom: "norm2"
   top: "conv3"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
-    num_output: 384
+    num_output: 427
     pad: 1
-    kernel_size: 3
+    kernel_size: 4
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -108,14 +92,6 @@ layer {
   type: "InnerProduct"
   bottom: "pool2"
   top: "improd3"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   inner_product_param {
     num_output: 1000
     weight_filler {
@@ -129,8 +105,8 @@ layer {
   }
 }
 layer {
-  name: "loss"
+  name: "prob"
   type: "Softmax"
   bottom: "improd3"
-  top: "loss"
+  top: "prob"
 }
