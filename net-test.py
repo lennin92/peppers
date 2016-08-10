@@ -30,14 +30,19 @@ net.forward()
 for i in range(63):
     cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv1/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['conv1'].data[0,i])
 
+net.forward()
 cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/pool1/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['pool1'].data[0,0])
 
+net.forward()
 for i in range(115):
     cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv2/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['conv2'].data[0,i])
 
+net.forward()
 cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/norm2/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['norm2'].data[0,0])
 
+net.forward()
 for i in range(171):
     cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv3/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['conv3'].data[0,i])
 
+net.forward()
 cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/pool2/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['pool2'].data[0,0])
