@@ -6,7 +6,7 @@ layer {
   top: "label"
   hdf5_data_param {
     source: "trainlist.h5.txt"
-    batch_size: 125
+    batch_size: 50
   }
 }
 layer {
@@ -23,7 +23,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 75
+    num_output: 63
     kernel_size: 8
     stride: 4
     weight_filler {
@@ -72,7 +72,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 165
+    num_output: 115
     kernel_size: 3
     stride: 1
     weight_filler {
@@ -110,7 +110,7 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 427
+    num_output: 171
     pad: 1
     kernel_size: 4
     weight_filler {
@@ -178,7 +178,7 @@ layer {
 }
 layer {
   name: "loss2"
-  type: "SigmoidCrossEntropyLoss"
+  type: "HingeLoss"
   bottom: "improd3"
   bottom: "label"
   top: "loss2"
