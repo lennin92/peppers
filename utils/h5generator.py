@@ -2,6 +2,7 @@ import h5py
 import caffe
 import numpy as np
 import csv
+import cv2
 import os
 import random
 from settings import SIZE, TMP_PNG_PATH, TRAIN_PATH,\
@@ -22,11 +23,11 @@ def processPNG(lines, train_path, trainlist_path):
     count = 0
     for lines2 in new_lines:
         print("PROCESSING BATCH %d"%(count))
-        X = np.zeros((len(lines2),  3, SIZE, SIZE), dtype='f4')
+        X = np.zeros((len(lines2), 1, SIZE, SIZE), dtype='f4')
         y = np.zeros((len(lines2), 1), dtype='f4')
         for i, l in enumerate(lines2):
-            img = caffe.io.load_image(l[0])
-            img = caffe.io.resize(img, (3, SIZE, SIZE))  # resize to fixed size
+            img = cv2.imread(IMAGE_FILE, 0)
+            img_blobinp = img[np.newaxis, np.newaxis, :, :]
             # you may apply other input transformations here...
             X[i] = img
             y[i] = int(l[1])

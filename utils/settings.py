@@ -1,4 +1,4 @@
-SIZE = 448
+SIZE = 512
 TMP_PNG_PATH = '/run/media/lennin92/Seagate Backup Plus Drive/DICOM/png/'
 
 CSV_PATH = '/run/media/lennin92/Seagate Backup Plus Drive/DICOM/csv/global.csv'
@@ -14,9 +14,9 @@ BASE_PATH = '/run/media/lennin92/Seagate Backup Plus Drive/DICOM/'
 
 LOG_FILE_PATH = '/run/media/lennin92/Seagate Backup Plus Drive/DICOM/log.txt'
 
-BATCH_SIZE = 400
+BATCH_SIZE = 600
 
 CAFFE_PATH = '~/caffe/python'
 
-MODEL_FILE = '/home/lennin/peppers/model/deploy.prototxt'
-PRETRAINED = '/home/lennin/peppers/model/caffe_iter_900.caffemodel'
+MODEL_FILE = '/home/lennin92/dicom/caffe/deploy.prototxt'
+PRETRAINED = '/home/lennin92/dicom/caffe/caffe_2_iter_3676.caffemodel'
