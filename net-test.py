@@ -8,7 +8,7 @@ import numpy as np
 
 # Set the right path to your model definition file, pretrained model weights,
 # and the image you would like to classify.
-IMAGE_FILE = '/home/lennin92/git/peppers/prbdata/PT0.ST0.SE1.IM0_90'
+IMAGE_FILE = '/home/lennin92/dicom/png.bak/PT14.ST16.SE98.IM3'
 
 caffe.set_mode_cpu()
 net = caffe.Net('/home/lennin92/dicom/caffe/deploy.prototxt', caffe.TEST)
@@ -25,7 +25,7 @@ img = cv2.imread(IMAGE_FILE, cv2.IMREAD_COLOR)
 img.resize((3, SIZE, SIZE, ))
 # img_blobinp = img[np.newaxis, np.newaxis, :, :]
 # net.blobs['image'].reshape(*img_blobinp.shape)
-net.blobs['image'].data[...] = img
+net.blobs['data'].data[...] = img
 
 net.forward()
 
