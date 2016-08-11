@@ -14,7 +14,7 @@ BASE_PATH = '/run/media/lennin92/SAMSUNG/DICOM/'
 
 LOG_FILE_PATH = '/run/media/lennin92/SAMSUNG/DICOM/log.txt'
 
-BATCH_SIZE = 600
+BATCH_SIZE = 500
 
 CAFFE_PATH = '~/caffe/python'
 

@@ -11,12 +11,10 @@ from settings import SIZE, TMP_PNG_PATH, TRAIN_PATH,\
 from dicomutils import dicom_to_png
 import log
 
-
 def listToCvs(l, csv_path):
     with open(csv_path, 'w') as csvf:
         csvw = csv.writer(csvf, delimiter=',')
         csvw.writerows(l)
-
 
 def processPNG(lines, train_path, trainlist_path):
     new_lines = [(lines+[lines[0]])[i:i+BATCH_SIZE] for i in range(0, len(lines), BATCH_SIZE-1)]
@@ -26,13 +24,13 @@ def processPNG(lines, train_path, trainlist_path):
         X = np.zeros((len(lines2), 1, SIZE, SIZE), dtype='f4')
         y = np.zeros((len(lines2), 1), dtype='f4')
         for i, l in enumerate(lines2):
-            img = cv2.imread(l[0], 0)
-            img.resize((1, SIZE, SIZE, ))
+            img = cv2.imread(l[0], cv2.IMREAD_COLOR)
+            img.resize((3, SIZE, SIZE, ))
             # you may apply other input transformations here...
             X[i] = img
             y[i] = int(l[1])
         with h5py.File(train_path+"."+str(count), 'w') as H:
-            H.create_dataset('image', data=X)  # note the name X given to the dataset!
+            H.create_dataset('data', data=X)  # note the name X given to the dataset!
             H.create_dataset('label', data=y)  # note the name y given to the dataset!
             count = count + 1
     with open(trainlist_path, 'w') as L:
@@ -114,12 +112,12 @@ def pngCsvToH5(csvpath, h5path, h5list):
 
 
 if __name__=="__main__":
-    # processCSV(CSV_PATH, BASE_PATH, TRAIN_PATH,
-    #        TRAINLIST_PATH, TEST_PATH, TESTLIST_PATH,
-    #        CSV_TRAINPNG_PATH, CSV_TESTPNG_PATH)
-    print("CREATING TRAINING H5 PATH")
-    log.info("CREATING TRAINING H5 PATH")
-    pngCsvToH5(CSV_TRAINPNG_PATH, TRAIN_PATH, TRAINLIST_PATH)
-    print("CREATING TEST H5 PATH")
-    log.info("CREATING TEST H5 PATH")
-    pngCsvToH5(CSV_TESTPNG_PATH, TEST_PATH, TESTLIST_PATH)
+    processCSV(CSV_PATH, BASE_PATH, TRAIN_PATH,
+        TRAINLIST_PATH, TEST_PATH, TESTLIST_PATH,
+        CSV_TRAINPNG_PATH, CSV_TESTPNG_PATH)
+    # print("CREATING TRAINING H5 PATH")
+    # log.info("CREATING TRAINING H5 PATH")
+    # pngCsvToH5(CSV_TRAINPNG_PATH, TRAIN_PATH, TRAINLIST_PATH)
+    # print("CREATING TEST H5 PATH")
+    # log.info("CREATING TEST H5 PATH")
+    # pngCsvToH5(CSV_TESTPNG_PATH, TEST_PATH, TESTLIST_PATH)

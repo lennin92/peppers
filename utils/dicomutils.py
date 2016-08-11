@@ -1,6 +1,7 @@
 import os
 import png
 import dicom
+import log
 
 def extract_png(dicom_path):
     """
@@ -14,7 +15,6 @@ def extract_png(dicom_path):
     dicom_file = open(dicom_path, 'rb')
     __dicom__ = dicom.read_file(dicom_file)
     shape = __dicom__.pixel_array.shape
-
     image_2d = []
     max_val = 0
     for row in __dicom__ .pixel_array:
@@ -30,15 +30,17 @@ def extract_png(dicom_path):
             row_scaled = []
             for col in row:
                 col_scaled = int((float(col) * 255.0/ float(max_val)) )
-                row_scaled.append(col_scaled)
+                row_scaled.append(col_scaled) # red
+                row_scaled.append(col_scaled) # green
+                row_scaled.append(col_scaled) # blue
             image_2d_scaled.append(row_scaled)
-
         return (shape[0], shape[1], image_2d_scaled, )
     raise Exception("MAX VAL = 0")
 
 def save_png(pixel_matix, height, width, path):
+    log.info("SAVING PNG " + path)
     png_file = open(path, 'wb')
-    w = png.Writer(height, width, greyscale=True)
+    w = png.Writer(height, width, greyscale=False)
     w.write(png_file, pixel_matix)
 
 
