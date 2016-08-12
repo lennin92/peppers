@@ -8,10 +8,12 @@ import numpy as np
 
 # Set the right path to your model definition file, pretrained model weights,
 # and the image you would like to classify.
-IMAGE_FILE = '/home/lennin92/dicom/png.bak/PT14.ST16.SE98.IM3'
+IMAGE_FILE = '/home/lennin92/git/peppers/prbdata/PT0.ST0.SE1.IM8'
 
 caffe.set_mode_cpu()
-net = caffe.Net('/home/lennin92/dicom/caffe/deploy.prototxt', caffe.TEST)
+net = caffe.Net('model/convnet.prototxt', caffe.TEST)
+                # '/home/lennin92/dicom/caffe/caffe_sgd_iter_24.caffemodel',
+                # caffe.TEST)
 
 # '/home/lennin92/dicom/caffe/caffe_iter_4000.caffemodel',
 
@@ -31,21 +33,21 @@ net.forward()
 
 
 for i in range(63):
-    cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv1/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['conv1'].data[0,i])
+    cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv1/1PT0.ST0.SE1.IM8_' + str(i) + '.png', 255*net.blobs['conv1'].data[0,i])
 
 net.forward()
-cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/pool1/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['pool1'].data[0,0])
+cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/pool1/1PT0.ST0.SE1.IM8_' + str(i) + '.png', 255*net.blobs['pool1'].data[0,0])
 
 net.forward()
 for i in range(115):
-    cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv2/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['conv2'].data[0,i])
+    cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv2/1PT0.ST0.SE1.IM8_' + str(i) + '.png', 255*net.blobs['conv2'].data[0,i])
 
 net.forward()
-cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/norm2/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['norm2'].data[0,0])
+cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/norm2/1PT0.ST0.SE1.IM8_' + str(i) + '.png', 255*net.blobs['norm2'].data[0,0])
 
 net.forward()
 for i in range(171):
-    cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv3/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['conv3'].data[0,i])
+    cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/conv3/1PT0.ST0.SE1.IM8_' + str(i) + '.png', 255*net.blobs['conv3'].data[0,i])
 
 net.forward()
-cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/pool2/PT0.ST0.SE2.IM16_' + str(i) + '.jpg', 255*net.blobs['pool2'].data[0,0])
+cv2.imwrite('/home/lennin92/git/peppers/prbdata/plots/pool2/1PT0.ST0.SE1.IM8_' + str(i) + '.png', 255*net.blobs['pool2'].data[0,0])

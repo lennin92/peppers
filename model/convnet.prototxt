@@ -1,13 +1,13 @@
 name: "myconvolution"
-input: "image"
+input: "data"
 input_dim: 1
-input_dim: 1
+input_dim: 3
 input_dim: 512
 input_dim: 512
 layer {
   name: "conv1"
   type: "Convolution"
-  bottom: "image"
+  bottom: "data"
   top: "conv1"
   convolution_param {
     num_output: 96
