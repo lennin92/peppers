@@ -14,7 +14,7 @@ def save_png(grid, path):
 
 
 def extract_grid(dicom_path, normalize=True, maxval=255.0):
-    with open(dicom_path,'rb') as f:
+    with open(dicom_path, 'rb') as f:
         dcm = dicom.read_file(f)
         grid = dcm.pixel_array
         if normalize:
