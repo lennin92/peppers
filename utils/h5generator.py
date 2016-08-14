@@ -43,7 +43,7 @@ def processPNG(lines, train_path, trainlist_path):
 def processCSV(csvpath, basepath, train_path, trainlist_path,
                test_path, testlist_path, pngtraincsv_path, pngtestcsv_path):
     pngs_train = [] # 70 % of training samples
-    pngs_test  = [] # 70 % of training samples
+    pngs_test  = [] # 30 % of training samples
     file_obj = open(csvpath, 'r')
     reader = csv.reader(file_obj)
     print("CONVERTING DICOM TO PNG")
@@ -51,6 +51,7 @@ def processCSV(csvpath, basepath, train_path, trainlist_path,
     count = 0
     count_train = 0
     count_test = 0
+    count_error = 0
     for row in reader:
         pngpath = os.path.join(TMP_PNG_PATH, row[0].replace("/",".").replace("\\","."))
         dcmpath = os.path.join(basepath, row[0])
