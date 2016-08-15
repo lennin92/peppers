@@ -1,16 +1,16 @@
 SIZE = 512
-TMP_PNG_PATH = '/run/media/lennin92/SAMSUNG/DICOM/png/'
+TMP_PNG_PATH = '/home/lennin92/dicom/png'
 
 CSV_PATH = '/run/media/lennin92/SAMSUNG/DICOM/csv/global.csv'
-CSV_TRAINPNG_PATH = '/run/media/lennin92/SAMSUNG/DICOM/csv/pngtrain.csv'
-CSV_TESTPNG_PATH = '/run/media/lennin92/SAMSUNG/DICOM/csv/pngtest.csv'
+CSV_TRAINPNG_PATH = '/home/lennin92/dicom/csv/pngtrain.csv'
+CSV_TESTPNG_PATH = '/home/lennin92/dicom/csv/pngtest.csv'
 
-TRAIN_PATH = '/run/media/lennin92/SAMSUNG/DICOM/h5/train.h5'
-TRAINLIST_PATH = '/run/media/lennin92/SAMSUNG/DICOM/h5/trainlist.h5.txt'
-TEST_PATH = '/run/media/lennin92/SAMSUNG/DICOM/h5/test.h5'
-TESTLIST_PATH = '/run/media/lennin92/SAMSUNG/DICOM/h5/testlist.h5.txt'
+TRAIN_PATH = '/home/lennin92/dicom/h5/train.h5'
+TRAINLIST_PATH = '/home/lennin92/dicom/h5/trainlist.h5.txt'
+TEST_PATH = '/home/lennin92/dicom/h5/test.h5'
+TESTLIST_PATH = '/home/lennin92/dicom/h5/testlist.h5.txt'
 
-BASE_PATH = '/run/media/lennin92/SAMSUNG/DICOM/'
+BASE_PATH = '/home/lennin92/dicom'
 
 LOG_FILE_PATH = '/run/media/lennin92/SAMSUNG/DICOM/log.txt'
 

@@ -21,11 +21,11 @@ def processPNG(lines, train_path, trainlist_path):
     count = 0
     for lines2 in new_lines:
         print("PROCESSING BATCH %d"%(count))
-        X = np.zeros((len(lines2), 3, SIZE, SIZE), dtype='f4')
+        X = np.zeros((len(lines2), SIZE, SIZE, 3), dtype='f4')
         y = np.zeros((len(lines2), 1), dtype='f4')
         for i, l in enumerate(lines2):
             img = cv2.imread(l[0], cv2.IMREAD_COLOR)
-            img.resize((3, SIZE, SIZE, ))
+            img.resize((SIZE, SIZE, 3,))
             # you may apply other input transformations here...
             X[i] = img
             y[i] = int(l[1])
@@ -115,9 +115,9 @@ if __name__=="__main__":
     # processCSV(CSV_PATH, BASE_PATH, TRAIN_PATH,
     #     TRAINLIST_PATH, TEST_PATH, TESTLIST_PATH,
     #     CSV_TRAINPNG_PATH, CSV_TESTPNG_PATH)
-    print("CREATING TRAINING H5 PATH")
-    log.info("CREATING TRAINING H5 PATH")
-    pngCsvToH5(CSV_TRAINPNG_PATH, TRAIN_PATH, TRAINLIST_PATH)
+    # print("CREATING TRAINING H5 PATH")
+    # log.info("CREATING TRAINING H5 PATH")
+    # pngCsvToH5(CSV_TRAINPNG_PATH, TRAIN_PATH, TRAINLIST_PATH)
     print("CREATING TEST H5 PATH")
     log.info("CREATING TEST H5 PATH")
     pngCsvToH5(CSV_TESTPNG_PATH, TEST_PATH, TESTLIST_PATH)
