@@ -13,6 +13,12 @@ def add_csv(csv_path, lines):
         csvw = csv.writer(csvf, delimiter=',')
         csvw.writerows(lines)
 
+def process_matrix_list(matrix_list, h5_file_path, h5_index_path, fixed_size):
+    for row in matrix_list:
+        png_path = row[0]
+        matrix = row[2]
+        save_png(matrix, png_path)
+    create_h5(pngs_train, h5_file_path, h5_index_path, fixed_size)
 
 def process_dicom_csv(csv_path, base_path, png_base_path, batch_size, fixed_size,
                       h5_path, h5_index_path, png_train_csv_path, png_test_csv_path):
@@ -27,9 +33,34 @@ def process_dicom_csv(csv_path, base_path, png_base_path, batch_size, fixed_size
     count_error = 0
     count_trainh5 = 0
     count_testh5 = 0
-    try:
+    lista_train = []
+    lista_test = []
+    for row in reader:
+        if (random.uniform(0.0, 1) <= 0.7):
+            lista_train.append(row)
+        else:
+            lista_test.append(row)
 
-        for row in reader:
+                        count_train += 1
+                        pngs_train.append([png_path, row[1], pixel_matrix])
+                    else:
+                        count_test += 1
+                        pngs_test.append([png_path, row[1], pixel_matrix])
+
+    new_lista = [(lista+[lista[0]])[i:i+BATCH_SIZE] for i in range(0, len(lista), BATCH_SIZE-1)]
+    try:
+        for sublista in new_lista:
+            batch_tr = []
+            for row in sublista:
+                try:
+                    count += 1
+                    dicom_path = os.path.join(base_path, row[0])
+                    png_path = os.path.join(png_base_path, row[0].replace("/", ".").replace("\\", "."))
+                    pixel_matrix = extract_grid(dicom_path)
+
+
+                except Exception, e:
+                    pass
             try:
                 count += 1
                 dicom_path = os.path.join(base_path, row[0])
@@ -76,7 +107,7 @@ def process_dicom_csv(csv_path, base_path, png_base_path, batch_size, fixed_size
             count_trainh5 += 1
 
         # IF LENGTH OF TEST IS >= BATCHSIZE, SAVE h5 AND RESTART LIST
-        if len(pngs_test) >= batch_size:
+        if len(pngs_test) >= 0:
             create_h5(pngs_test, h5_path + "/test.h5." + str(count_testh5), h5_index_path + "testlist.txt", fixed_size)
             add_csv(png_test_csv_path, pngs_test)
             count_testh5 += 1
@@ -95,4 +126,3 @@ if __name__ == "__main__":
         CSV_PATH, BASE_PATH, TMP_PNG_PATH, BATCH_SIZE, SIZE,
         H5_PATH, H5_PATH, CSV_TRAINPNG_PATH, CSV_TESTPNG_PATH
     )
-
