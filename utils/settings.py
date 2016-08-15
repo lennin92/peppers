@@ -1,4 +1,5 @@
 SIZE = 512
+BASE_SHAPE = (1, SIZE, SIZE)
 """
     ENVIROMENTS = [
         (1, 'LENNIN-TOSHIBAPC'),
@@ -7,7 +8,7 @@ SIZE = 512
     ]
 
 """
-ENVIROMENT = 1 # 'LENNIN-TOSHIBAPC'
+ENVIROMENT = 2 # 'LENNIN-TOSHIBAPC'
 
 if ENVIROMENT == 1: #'LENNIN-TOSHIBAPC':
     BASE_PATH = 'E:/TESIS/dicom/'
@@ -23,8 +24,10 @@ if ENVIROMENT == 1: #'LENNIN-TOSHIBAPC':
 
     CAFFE_PATH = 'C:/Anaconda2/envs/peppers/Lib/site-packages/caffe'
 
-    # MODEL_FILE = '/home/lennin92/dicom/caffe/deploy.prototxt'
-    # PRETRAINED = '/home/lennin92/dicom/caffe/caffe_2_iter_3676.caffemodel'
+    DPLOY_MODEL_FILE = 'model/deploy.prototxt'
+    TRAIN_MODEL_FILE = 'model/train.prototxt'
+    PRETRAINED = None
+
 elif ENVIROMENT == 2: #'LENNIN-WORKPC':
     BASE_PATH = '/home/lennin92/TESIS/dicom/'
     TMP_PNG_PATH = '/home/lennin92/TESIS/png/'

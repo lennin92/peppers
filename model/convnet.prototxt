@@ -1,7 +1,7 @@
 name: "myconvolution"
 input: "data"
 input_dim: 1
-input_dim: 3
+input_dim: 1
 input_dim: 512
 input_dim: 512
 layer {

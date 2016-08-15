@@ -3,9 +3,9 @@ layer {
   name: "data"
   type: "Input"
   top: "data"
-  top: "label"
-  input_param { shape: { dim: 1 dim: 3 dim: 512 dim: 512 } }
-}layer {
+  input_param { shape: { dim: 10 dim: 1 dim: 512 dim: 512 } }
+}
+layer {
   name: "conv1"
   type: "Convolution"
   bottom: "data"
@@ -16,12 +16,12 @@ layer {
     stride: 4
   }
 }
-# layer {
-#  name: "relu1"
-#  type: "ReLU"
-#  bottom: "conv1"
-#  top: "conv1"
-# }
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
 layer {
   name: "norm1"
   type: "LRN"
