@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import dicom
+import dcm
 import numpy as np
 from os import listdir
 from os.path import isfile, join
@@ -41,7 +41,7 @@ for pt_dir in PT:
               dicom_path = pt_dir + "/" + st_dir + "/" + se_dir + "/" + dicom_file
               print dicom_path
               try:
-                df = dicom.read_file(dicom_path)
+                df = dcm.read_file(dicom_path)
                 raw = df.pixel_array
 
                 df.PixelData = np.rot90(raw).tostring()
