@@ -49,7 +49,7 @@ elif ENVIROMENT == 2: #'LENNIN-WORKPC':
     PRETRAINED = None
     # PRETRAINED = '/home/lennin92/dicom/caffe/caffe_2_iter_3676.caffemodel'
 
-elif ENVIROMENT == 3: #'LENNIN-WORKPC':
+elif ENVIROMENT == 3: #'COLATO-CASA':
     BASE_PATH = '/home/jaco/TESIS/dicom/'
     TMP_PNG_PATH = '/home/jaco/TESIS/png/'
 
@@ -57,7 +57,7 @@ elif ENVIROMENT == 3: #'LENNIN-WORKPC':
     CSV_TRAINPNG_PATH = '/home/jaco/TESIS/csv/pngtrain.csv'
     CSV_TESTPNG_PATH = '/home/jaco/TESIS/csv/pngtest.csv'
 
-    H5_PATH = '/home/lennin92/jaco/h5/'
+    H5_PATH = '/home/jaco/h5/'
 
     LOG_FILE_PATH = '/home/jaco/TESIS/h5/log.txt'
 
