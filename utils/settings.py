@@ -4,6 +4,7 @@ BASE_SHAPE = (1, SIZE, SIZE)
     ENVIROMENTS = [
         (1, 'LENNIN-TOSHIBAPC'),
         (2, 'LENNIN-WORKPC'),
+        (3, 'COLATO-CASA'),
 
     ]
 
@@ -48,6 +49,23 @@ elif ENVIROMENT == 2: #'LENNIN-WORKPC':
     PRETRAINED = None
     # PRETRAINED = '/home/lennin92/dicom/caffe/caffe_2_iter_3676.caffemodel'
 
+elif ENVIROMENT == 3: #'LENNIN-WORKPC':
+    BASE_PATH = '/home/jaco/TESIS/dicom/'
+    TMP_PNG_PATH = '/home/jaco/TESIS/png/'
+
+    CSV_PATH = '/home/jaco/TESIS/csv/globaltest.csv'
+    CSV_TRAINPNG_PATH = '/home/jaco/TESIS/csv/pngtrain.csv'
+    CSV_TESTPNG_PATH = '/home/jaco/TESIS/csv/pngtest.csv'
+
+    H5_PATH = '/home/lennin92/jaco/h5/'
+
+    LOG_FILE_PATH = '/home/jaco/TESIS/h5/log.txt'
+
+    CAFFE_PATH = '~/caffe/python'
+
+    DPLOY_MODEL_FILE = 'model/deploy.prototxt'
+    TRAIN_MODEL_FILE = 'model/train.prototxt'
+    PRETRAINED = None
 else:
     TMP_PNG_PATH = '/run/media/lennin92/SAMSUNG/DICOM/png/'
     H5_PATH = ''
