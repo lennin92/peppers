@@ -7,118 +7,66 @@ from utils.settings import SIZE, TMP_PNG_PATH, \
 from utils import log
 import traceback
 
+
+def list_to_matrix(l, size):
+    return [(l+[l[0]])[i:i+size] for i in range(0, len(l), size-1)]
+
+
 def add_csv(csv_path, lines):
     lines = [l[0:2] for l in lines]
     with open(csv_path, 'a') as csvf:
         csvw = csv.writer(csvf, delimiter=',')
         csvw.writerows(lines)
 
-def process_matrix_list(matrix_list, h5_file_path, h5_index_path, fixed_size):
+
+def process_matrix_list(matrix_list, base_path, h5_file_path, h5_index_path,
+                        csv_png_path, fixed_size):
+    pngs = []
+    data = []
     for row in matrix_list:
-        png_path = row[0]
-        matrix = row[2]
+        png_path = row[2] + ".png"
+        matrix = extract_grid(os.path.join(base_path, row[0]))
+        data.append([matrix, row[1]])
         save_png(matrix, png_path)
-    create_h5(pngs_train, h5_file_path, h5_index_path, fixed_size)
+        pngs.append([png_path, row[1]])
+    create_h5(data, h5_file_path, h5_index_path, fixed_size)
+    add_csv(csv_png_path, pngs)
+
 
 def process_dicom_csv(csv_path, base_path, png_base_path, batch_size, fixed_size,
                       h5_path, h5_index_path, png_train_csv_path, png_test_csv_path):
     # type: (str, str, str, int, int, str, str, str, str) -> None
-    pngs_train = []  # 70 % of training samples
-    pngs_test = []  # 30 % of training samples
     file_obj = open(csv_path, 'r')
     reader = csv.reader(file_obj)
-    count = 0
-    count_train = 0
-    count_test = 0
-    count_error = 0
-    count_trainh5 = 0
-    count_testh5 = 0
     lista_train = []
     lista_test = []
+    reader = [r for r in reader]
+    random.shuffle(reader) # RANDOM ORDER OF DICOM
     for row in reader:
-        if (random.uniform(0.0, 1) <= 0.7):
+        png_path = os.path.join(png_base_path, row[0].replace("/", ".").replace("\\", "."))
+        row.append(png_path)
+        if random.uniform(0.0, 1) <= 0.7:
             lista_train.append(row)
         else:
             lista_test.append(row)
 
-                        count_train += 1
-                        pngs_train.append([png_path, row[1], pixel_matrix])
-                    else:
-                        count_test += 1
-                        pngs_test.append([png_path, row[1], pixel_matrix])
+    # fix lista train to be list of list respecting batch size
+    lista_train = list_to_matrix(lista_train, batch_size)
+    lista_test = list_to_matrix(lista_test, batch_size)
+    count_trainh5 = 0
+    h5trp = h5_index_path + "/trainlist.txt"
+    for lista in lista_train:
+        h5p = h5_path + "/train.h5." + str(count_trainh5)
+        process_matrix_list(lista, base_path, h5p, h5trp, png_train_csv_path, fixed_size)
+        count_trainh5 += 1
 
-    new_lista = [(lista+[lista[0]])[i:i+BATCH_SIZE] for i in range(0, len(lista), BATCH_SIZE-1)]
-    try:
-        for sublista in new_lista:
-            batch_tr = []
-            for row in sublista:
-                try:
-                    count += 1
-                    dicom_path = os.path.join(base_path, row[0])
-                    png_path = os.path.join(png_base_path, row[0].replace("/", ".").replace("\\", "."))
-                    pixel_matrix = extract_grid(dicom_path)
+    count_trainh5 = 0
+    h5trp = h5_index_path + "/testlist.txt"
+    for lista in lista_test:
+        h5p = h5_path + "/test.h5." + str(count_trainh5)
+        process_matrix_list(lista, base_path, h5p, h5trp, png_test_csv_path,fixed_size)
+        count_trainh5 += 1
 
-
-                except Exception, e:
-                    pass
-            try:
-                count += 1
-                dicom_path = os.path.join(base_path, row[0])
-                png_path = os.path.join(png_base_path, row[0].replace("/", ".").replace("\\", "."))
-                pixel_matrix = extract_grid(dicom_path)
-                save_png(pixel_matrix, png_path)
-
-                if (random.uniform(0.0, 1) < 0.7):
-                    count_train += 1
-                    pngs_train.append([png_path, row[1], pixel_matrix])
-                else:
-                    count_test += 1
-                    pngs_test.append([png_path, row[1], pixel_matrix])
-
-                # IF LENGTH OF TRAIN IS >= BATCHSIZE, SAVE h5 AND RESTART LIST
-                if len(pngs_train) >= batch_size:
-                    create_h5(pngs_train, h5_path + "/train.h5." + str(count_trainh5),
-                              h5_index_path + "/trainlist.txt", fixed_size)
-                    add_csv(png_train_csv_path, pngs_train)
-                    pngs_train = []
-                    count_trainh5 += 1
-
-                # IF LENGTH OF TEST IS >= BATCHSIZE, SAVE h5 AND RESTART LIST
-                if len(pngs_test) >= batch_size:
-                    create_h5(pngs_test, h5_path + "/test.h5." + str(count_testh5),
-                              h5_index_path + "/testlist.txt", fixed_size)
-                    add_csv(png_test_csv_path, pngs_test)
-                    pngs_test = []
-                    count_testh5 += 1
-
-                if count % 200 == 0:
-                    print("PROCESSED %d, TRAIN: %d, TEST: %d, ERROR: %d" % (count, count_train, count_test, count_error))
-                    log.info("PROCESSED %d, TRAIN: %d, TEST: %d, ERROR: %d" % (count, count_train, count_test, count_error))
-            except Exception, e:
-                count_error += 1
-                print("ERROR ON PROCESS DICOM '%s'" % (dicom_path,), e)
-                log.error(e)
-                traceback.print_exc()
-
-        # IF LENGTH OF TRAIN IS >= BATCHSIZE, SAVE h5 AND RESTART LIST
-        if len(pngs_train) >= 0:
-            create_h5(pngs_train, h5_path + "/train.h5." + str(count_trainh5), h5_index_path + "/trainlist.txt", fixed_size)
-            add_csv(png_train_csv_path, pngs_train)
-            count_trainh5 += 1
-
-        # IF LENGTH OF TEST IS >= BATCHSIZE, SAVE h5 AND RESTART LIST
-        if len(pngs_test) >= 0:
-            create_h5(pngs_test, h5_path + "/test.h5." + str(count_testh5), h5_index_path + "testlist.txt", fixed_size)
-            add_csv(png_test_csv_path, pngs_test)
-            count_testh5 += 1
-
-        print("PROCESSED %d, TRAIN: %d, TEST: %d, ERROR: %d" % (count, count_train, count_test, count_error))
-        log.info("PROCESSED %d, TRAIN: %d, TEST: %d, ERROR: %d" % (count, count_train, count_test, count_error))
-    except Exception, e:
-        count_error += 1
-        print("ERROR ON PROCESS ", e)
-        log.error(e)
-        traceback.print_exc()
 
 
 if __name__ == "__main__":
