@@ -24,11 +24,14 @@ def process_matrix_list(matrix_list, base_path, h5_file_path, h5_index_path,
     pngs = []
     data = []
     for row in matrix_list:
-        png_path = row[2] + ".png"
-        matrix = extract_grid(os.path.join(base_path, row[0]))
-        data.append([matrix, row[1]])
-        save_png(matrix, png_path)
-        pngs.append([png_path, row[1]])
+        try:
+            png_path = row[2] + ".png"
+            matrix = extract_grid(os.path.join(base_path, row[0]))
+            data.append([matrix, row[1]])
+            save_png(matrix, png_path)
+            pngs.append([png_path, row[1]])
+        except Exception, e:
+            print("ERROR " + str(row))
     create_h5(data, h5_file_path, h5_index_path, fixed_size)
     add_csv(csv_png_path, pngs)
 
