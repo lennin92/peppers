@@ -9,7 +9,7 @@ BASE_SHAPE = (1, SIZE, SIZE)
     ]
 
 """
-ENVIROMENT = 1 # 'LENNIN-TOSHIBAPC'
+ENVIROMENT = 2 # 'LENNIN-TOSHIBAPC'
 BATCH_SIZE = 350
 
 if ENVIROMENT == 1: #'LENNIN-TOSHIBAPC':
@@ -46,8 +46,7 @@ elif ENVIROMENT == 2: #'LENNIN-WORKPC':
 
     DPLOY_MODEL_FILE = 'model/deploy.prototxt'
     TRAIN_MODEL_FILE = 'model/train.prototxt'
-    PRETRAINED = None
-    # PRETRAINED = '/home/lennin92/dicom/caffe/caffe_2_iter_3676.caffemodel'
+    PRETRAINED = '/home/lennin92/TESIS/caffe/caffe_iter_1657.caffemodel'
 
 elif ENVIROMENT == 3: #'COLATO-CASA':
     BASE_PATH = '/home/jaco/TESIS/dicom/'
@@ -87,4 +86,4 @@ else:
 
     DPLOY_MODEL_FILE = 'model/deploy.prototxt'
     TRAIN_MODEL_FILE = 'model/train.prototxt'
-    PRETRAINED = None
+    PRETRAINED = '/home/lennin92/TESIS/caffe/caffe_iter_40000.caffemodel'
