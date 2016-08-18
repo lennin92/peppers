@@ -59,17 +59,6 @@ layer {
   top: "conv1"
 }
 layer {
-  name: "pool1"
-  type: "Pooling"
-  bottom: "norm1"
-  top: "pool1"
-  pooling_param {
-    pool: MAX
-    kernel_size: 4
-    stride: 1
-  }
-}
-layer {
   name: "norm1"
   type: "LRN"
   bottom: "conv1"
@@ -78,6 +67,17 @@ layer {
     local_size: 5
     alpha: 0.001
     beta: 0.8
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "norm1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 4
+    stride: 1
   }
 }
 layer {
