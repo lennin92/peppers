@@ -3,7 +3,7 @@ import numpy as np
 import log
 
 def create_h5(lines, pathH5, pathIndex, size):
-    X = np.zeros((len(lines), 1, size, size), dtype='f4')
+    X = np.zeros((len(lines), 3, size, size), dtype='f4')
     y = np.zeros((len(lines), 1), dtype='f4')
     for i, l in enumerate(lines):
         l[0].resize((1,size,size,))

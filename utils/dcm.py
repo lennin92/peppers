@@ -10,6 +10,7 @@ import numpy as np
 
 
 def save_png(grid, path):
+    grid = np.array([[[[px,px,px]]for px in row] for row in grid])
     cv2.imwrite(path+".png", grid)
 
 
@@ -26,7 +27,7 @@ def extract_grid(dicom_path, normalize=True, maxval=255.0):
         return grid
 
 
-def dicom_to_png(dicom_path, png_path):
+def dicom_to_png(dicom_path, png_path, color):
     if not os.path.exists(dicom_path):
         raise Exception("Dicom Path does not exists %s" % (dicom_path))
 
