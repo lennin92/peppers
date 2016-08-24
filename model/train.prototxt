@@ -1,15 +1,16 @@
 name: "peppers"
 layer {
   name: "data"
-  type: "HDF5Data"
+  type: "Data"
   top: "data"
   top: "label"
-  hdf5_data_param {
-    source: "trainlist.h5.txt"
-    batch_size: 10
-  }
   include {
     phase: TRAIN
+  }
+  data_param {
+    source: "train_lmdb"
+    batch_size: 12
+    backend: LMDB
   }
 }
 layer {
@@ -39,9 +40,9 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 87
+    num_output: 96
     kernel_size: 11
-    stride: 2
+    stride: 4
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -59,31 +60,31 @@ layer {
   top: "conv1"
 }
 layer {
-  name: "norm1"
-  type: "LRN"
-  bottom: "conv1"
-  top: "norm1"
-  lrn_param {
-    local_size: 5
-    alpha: 0.001
-    beta: 0.8
-  }
-}
-layer {
   name: "pool1"
   type: "Pooling"
-  bottom: "norm1"
+  bottom: "conv1"
   top: "pool1"
   pooling_param {
     pool: MAX
-    kernel_size: 4
-    stride: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
   }
 }
 layer {
   name: "conv2"
   type: "Convolution"
-  bottom: "pool1"
+  bottom: "norm1"
   top: "conv2"
   param {
     lr_mult: 1
@@ -94,16 +95,17 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 97
-    kernel_size: 3
-    stride: 2
+    num_output: 256
+    pad: 2
+    kernel_size: 5
+    group: 2
     weight_filler {
       type: "gaussian"
       std: 0.01
     }
     bias_filler {
       type: "constant"
-      value: 0
+      value: 1
     }
   }
 }
@@ -114,9 +116,31 @@ layer {
   top: "conv2"
 }
 layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
   name: "conv3"
   type: "Convolution"
-  bottom: "conv2"
+  bottom: "norm2"
   top: "conv3"
   param {
     lr_mult: 1
@@ -127,10 +151,9 @@ layer {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 160
+    num_output: 384
     pad: 1
     kernel_size: 3
-    stride: 2
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -147,33 +170,10 @@ layer {
   bottom: "conv3"
   top: "conv3"
 }
-
-layer {
-  name: "pool2"
-  type: "Pooling"
-  bottom: "conv3"
-  top: "pool2"
-  pooling_param {
-    pool: MAX
-    kernel_size: 4
-    stride: 1
-  }
-}
-layer {
-  name: "norm2"
-  type: "LRN"
-  bottom: "pool2"
-  top: "norm2"
-  lrn_param {
-    local_size: 5
-    alpha: 0.0001
-    beta: 0.75
-  }
-}
 layer {
   name: "conv4"
   type: "Convolution"
-  bottom: "norm2"
+  bottom: "conv3"
   top: "conv4"
   param {
     lr_mult: 1
@@ -239,10 +239,10 @@ layer {
   top: "conv5"
 }
 layer {
-  name: "pool3"
+  name: "pool5"
   type: "Pooling"
   bottom: "conv5"
-  top: "pool3"
+  top: "pool5"
   pooling_param {
     pool: MAX
     kernel_size: 3
@@ -250,10 +250,10 @@ layer {
   }
 }
 layer {
-  name: "improd1"
+  name: "fc6"
   type: "InnerProduct"
-  bottom: "pool3"
-  top: "improd1"
+  bottom: "pool5"
+  top: "fc6"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -263,37 +263,37 @@ layer {
     decay_mult: 0
   }
   inner_product_param {
-    num_output: 2500
+    num_output: 4096
     weight_filler {
       type: "gaussian"
-      std: 0.01
+      std: 0.005
     }
     bias_filler {
       type: "constant"
-      value: 0
+      value: 1
     }
   }
 }
 layer {
   name: "relu6"
   type: "ReLU"
-  bottom: "improd1"
-  top: "improd1"
+  bottom: "fc6"
+  top: "fc6"
 }
 layer {
-  name: "drop1"
+  name: "drop6"
   type: "Dropout"
-  bottom: "improd1"
-  top: "improd1"
+  bottom: "fc6"
+  top: "fc6"
   dropout_param {
-    dropout_ratio: 0.3
+    dropout_ratio: 0.5
   }
 }
 layer {
-  name: "improd2"
+  name: "fc7"
   type: "InnerProduct"
-  bottom: "improd1"
-  top: "improd2"
+  bottom: "fc6"
+  top: "fc7"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -303,7 +303,47 @@ layer {
     decay_mult: 0
   }
   inner_product_param {
-    num_output: 2
+    num_output: 4096
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc8-peppers"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "fc8-peppers"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 1
     weight_filler {
       type: "gaussian"
       std: 0.01
@@ -317,7 +357,7 @@ layer {
 layer {
   name: "accuracy"
   type: "Accuracy"
-  bottom: "improd2"
+  bottom: "fc8-peppers"
   bottom: "label"
   top: "accuracy"
   include {
@@ -327,17 +367,7 @@ layer {
 layer {
   name: "loss"
   type: "SoftmaxWithLoss"
-  bottom: "improd2"
+  bottom: "fc8-peppers"
   bottom: "label"
   top: "loss"
-}
-layer {
-  name: "loss2"
-  type: "HingeLoss"
-  bottom: "improd2"
-  bottom: "label"
-  top: "loss2"
-  include {
-    phase: TEST
-  }
 }

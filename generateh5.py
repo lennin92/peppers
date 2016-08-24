@@ -15,7 +15,7 @@ def list_to_matrix(l, size):
 def add_csv(csv_path, lines):
     lines = [l[0:2] for l in lines]
     with open(csv_path, 'a') as csvf:
-        csvw = csv.writer(csvf, delimiter=',')
+        csvw = csv.writer(csvf, delimiter=' ')
         csvw.writerows(lines)
 
 
@@ -32,7 +32,7 @@ def process_matrix_list(matrix_list, base_path, h5_file_path, h5_index_path,
             pngs.append([png_path, row[1]])
         except Exception, e:
             print("ERROR " + str(row))
-    create_h5(data, h5_file_path, h5_index_path, fixed_size)
+    # create_h5(data, h5_file_path, h5_index_path, fixed_size)
     add_csv(csv_png_path, pngs)
 
 

@@ -1,7 +1,7 @@
 SIZE = 512
 BASE_SHAPE = (1, SIZE, SIZE)
 """
-    ENVIROMENTS = [
+    ENVIRONMENTS = [
         (1, 'LENNIN-TOSHIBAPC'),
         (2, 'LENNIN-WORKPC'),
         (3, 'COLATO-CASA'),
@@ -9,16 +9,16 @@ BASE_SHAPE = (1, SIZE, SIZE)
     ]
 
 """
-ENVIROMENT = 2 # 'LENNIN-TOSHIBAPC'
+ENVIROMENT = 1 # 'LENNIN-TOSHIBAPC'
 BATCH_SIZE = 350
 
 if ENVIROMENT == 1: #'LENNIN-TOSHIBAPC':
     BASE_PATH = 'E:/TESIS/dicom/'
     TMP_PNG_PATH = 'E:/TESIS/png/'
 
-    CSV_PATH = 'E:/TESIS/csv/global_prb.csv'
-    CSV_TRAINPNG_PATH = 'E:/TESIS/csv/pngtrain_prb.csv'
-    CSV_TESTPNG_PATH = 'E:/TESIS/csv/pngtest_prb.csv'
+    CSV_PATH = 'E:/TESIS/csv/global.csv'
+    CSV_TRAINPNG_PATH = 'E:/TESIS/csv/pngtrain.csv'
+    CSV_TESTPNG_PATH = 'E:/TESIS/csv/pngtest.csv'
 
     H5_PATH = 'E:/TESIS/h5'
 
