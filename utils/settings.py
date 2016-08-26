@@ -28,7 +28,7 @@ if ENVIROMENT == 1: #'LENNIN-TOSHIBAPC':
 
     DPLOY_MODEL_FILE = 'model/deploy.prototxt'
     TRAIN_MODEL_FILE = 'model/train.prototxt'
-    PRETRAINED = None
+    PRETRAINED = 'E:/TESIS/caffe/peppers_train_iter_360000.solverstate'
 
 elif ENVIROMENT == 2: #'LENNIN-WORKPC':
     BASE_PATH = '/home/lennin92/TESIS/dicom/'

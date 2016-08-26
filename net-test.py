@@ -30,6 +30,7 @@ print "NET.PARAMS = ", net.params
 print "NET.LAYERS:"
 for bl in net.blobs:
     print "    BLOB '%s' SHAPE "%(bl), [s for s in net.blobs[bl].shape]
+print "NET.TOTAL_PARAMS = ", sum([ (reduce(lambda x,y: x*y, p.data.shape)) for k in net.params for i,p in enumerate(net.params[k]) ])
 
 # plt.imshow(input_image)
 #img = cv2.imread('prbdata/' + IMAGE_FILE + '.png', cv2.IMREAD_GRAYSCALE)
