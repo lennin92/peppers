@@ -1,25 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5204e287-8eea-4482-87b1-7940491dcd9f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generateh5.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/net-test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/peppers-test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/prbdata/IM4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rotate_dicom_files.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/dcm.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/dicomutils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/h5.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/h5generator.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/log.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/rotate_dicom_files.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/settings.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/peppers.iml" afterPath="$PROJECT_DIR$/.idea/peppers.iml" />
+    <list default="true" id="5204e287-8eea-4482-87b1-7940491dcd9f" name="Default" comment="Creacion de aplicacion web usando django">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirements.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="peppers.iws" />
@@ -74,7 +57,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/rest/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="238">
@@ -82,6 +65,16 @@
                   <folding>
                     <element signature="e#0#46#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/requirements.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="51">
+                  <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -164,6 +157,7 @@
         <option value="$PROJECT_DIR$/peppers/urls.py" />
         <option value="$PROJECT_DIR$/rest/serializers.py" />
         <option value="$PROJECT_DIR$/rest/views.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
       </list>
     </option>
   </component>
@@ -758,7 +752,14 @@
       <option name="project" value="LOCAL" />
       <updated>1470259781518</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Creacion de aplicacion web usando django">
+      <created>1479091537639</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1479091537639</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -823,7 +824,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="e" />
     <MESSAGE value="Generation of h5 datafile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Generation of h5 datafile" />
+    <MESSAGE value="Creacion de aplicacion web usando django" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creacion de aplicacion web usando django" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -874,7 +876,6 @@
     <entry file="file://$PROJECT_DIR$/utils/settings.py" />
     <entry file="file://$PROJECT_DIR$/utils/h5generator.py" />
     <entry file="file://$PROJECT_DIR$/utils/log.py" />
-    <entry file="file://$PROJECT_DIR$/requirements.txt" />
     <entry file="file://$PROJECT_DIR$/utils/log.py" />
     <entry file="file://$PROJECT_DIR$/utils/dicomutils.py" />
     <entry file="file://$PROJECT_DIR$/utils/__init__.py" />
@@ -906,6 +907,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -913,6 +915,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="39" lean-forward="true" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -920,6 +923,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -927,6 +931,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1017,6 +1022,14 @@
           <folding>
             <element signature="e#0#46#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
