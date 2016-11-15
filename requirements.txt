@@ -2,3 +2,4 @@ Django==1.10.3
 djangorestframework==3.5.3
 numpy==1.11.2
 Pillow==3.4.2
+django_rest_swagger==2.1.0

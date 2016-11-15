@@ -17,9 +17,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.authtoken import views as tviews
 from rest.views import router
+from rest_framework_swagger.views import get_swagger_view
+
+
+schema_view = get_swagger_view(title='Peppers API')
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include(router.urls)),
-    url(r'^rest-auth/', tviews.obtain_auth_token)
+    url(r'^rest-api/auth/', tviews.obtain_auth_token),
+    url(r'^rest-api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^$', schema_view),
 ]
