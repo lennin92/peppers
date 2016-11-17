@@ -10,7 +10,7 @@ from rest.models import Clasificacion, Imagen, SugerenciaDiagnostico, Correccion
 from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer, EstudioSerializer
 
 import random
-
+from rest_framework import permissions
 
 def analizar_estudio(id_estudio):
     print("Analizando estudio")
@@ -29,6 +29,7 @@ def analizar_estudio(id_estudio):
 class ClasificacionViewSet(viewsets.ModelViewSet):
     queryset = Clasificacion.objects.all()
     serializer_class = ClasificacionSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def list(self, request):
         queryset = Clasificacion.objects.all()
@@ -45,6 +46,7 @@ class ClasificacionViewSet(viewsets.ModelViewSet):
 class SugerenciaDiagnosticoViewSet(viewsets.ModelViewSet):
     queryset = Estudio.objects.all()
     serializer_class = EstudioSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def sugerencia(self, request, pk=None):
         if pk is None:
