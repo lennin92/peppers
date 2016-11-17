@@ -508,7 +508,7 @@ model</ColNames>
       <OnUpdate>no-action</OnUpdate>
     </foreign-key>
     <column id="109" parent="16" name="id">
-      <DataType>INTEGER(0,-1)|4</DataType>
+      <DataType>VARCHAR(55)(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="110" parent="16" name="nombre">
@@ -518,12 +518,12 @@ model</ColNames>
     </column>
     <column id="111" parent="16" name="id_estudio">
       <Position>2</Position>
-      <DataType>VARCHAR(25)(0,-1)|12</DataType>
+      <DataType>VARCHAR(55)(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="112" parent="16" name="id_serie">
       <Position>3</Position>
-      <DataType>VARCHAR(25)(0,-1)|12</DataType>
+      <DataType>VARCHAR(55)(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="113" parent="16">
@@ -534,24 +534,24 @@ model</ColNames>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="115" parent="17" name="es_correto">
+    <column id="115" parent="17" name="es_correcto">
       <Position>1</Position>
       <DataType>BOOL(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="116" parent="17" name="fecha_hora">
+    <column id="116" parent="17" name="clasificacion_id">
       <Position>2</Position>
-      <DataType>DATETIME(0,-1)|12</DataType>
+      <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="117" parent="17" name="clasificacion_id">
+    <column id="117" parent="17" name="imagen_id">
       <Position>3</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="118" parent="17" name="imagen_id">
+    <column id="118" parent="17" name="fecha_hora">
       <Position>4</Position>
-      <DataType>INTEGER(0,-1)|4</DataType>
+      <DataType>DATETIME(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="119" parent="17">

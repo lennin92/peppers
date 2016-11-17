@@ -3918,3 +3918,5 @@ def populate():
         i.id_estudio = groups['studyuid']
         i.id_serie = groups['objectuid']
         i.save()
+
+
