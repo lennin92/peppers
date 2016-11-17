@@ -3922,7 +3922,7 @@ def populate():
         i = Imagen()
         i.id = groups['objectuid']
         i.nombre = groups['objectuid']
-        i.id_estudio = groups['studyuid']
+        i.estudio__id = groups['studyuid']
         i.id_serie = groups['objectuid']
         i.save()
 
