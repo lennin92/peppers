@@ -3912,7 +3912,7 @@ def populate():
         sc = Estudio.objects.filter(id=['studyuid'])
         if sc.count() <= 0:
             e = Estudio()
-            e.id = id=['studyuid']
+            e.id = groups['studyuid']
             e.save()
         
         # if object is already in database skip
