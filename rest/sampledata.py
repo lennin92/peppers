@@ -3908,6 +3908,13 @@ def populate():
 
         groups = match.groupdict()
 
+        # if estudio is already in database skip
+        sc = Estudio.objects.filter(id=['studyuid'])
+        if sc.count() <= 0:
+            e = Estudio()
+            e.id = id=['studyuid']
+            e.save()
+        
         # if object is already in database skip
         sc = Imagen.objects.filter(id=['objectuid'])
         if sc.count() > 0: continue
