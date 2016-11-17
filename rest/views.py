@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import routers
+from rest_framework.decorators import detail_route
 
 from rest.models import Clasificacion, Imagen, SugerenciaDiagnostico, CorreccionDiagnostico
 from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer
@@ -40,7 +41,11 @@ class ClasificacionViewSet(viewsets.ViewSet):
 
 
 class SugerenciaDiagnosticoViewSet(viewsets.ViewSet):
+    queryset = SugerenciaDiagnostico.objects.all()
+    serializer_class = SugerenciaSerializer
+    lookup_field = 'id_estudio'
 
+    @detail_route:
     def retrieve(self, request, pk=None):
         if pk is None:
             raise HttpResponseBadRequest()
