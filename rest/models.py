@@ -10,9 +10,10 @@ class Clasificacion(models.Model):
 
 
 class Imagen(models.Model):
+    id = models.CharField(max_length=55, primary_key=True)
     nombre = models.CharField(max_length=25)
-    id_estudio = models.CharField(max_length=25)
-    id_serie = models.CharField(max_length=25)
+    id_estudio = models.CharField(max_length=55)
+    id_serie = models.CharField(max_length=55)
 
 
 class SugerenciaDiagnostico(models.Model):

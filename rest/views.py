@@ -11,9 +11,9 @@ from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, Corr
 import random
 
 
-def analizar_estudio(id_estudio, id_serie, id_objeto=None):
+def analizar_estudio(id_estudio):
     print("Analizando estudio")
-    imagenes = Imagen.objects.filter(id_estudio=id_estudio, id_serie=id_serie)
+    imagenes = Imagen.objects.filter(id_estudio=id_estudio)
     clasificaciones = Clasificacion.objects
     sugerencias = []
     for i in imagenes:
