@@ -3896,7 +3896,7 @@ TEST_LOG = """
 
 matches = re.finditer(regex, TEST_LOG, re.MULTILINE | re.IGNORECASE)
 
-from rest.models import Imagen
+from rest.models import Imagen, Estudio
 
 
 def populate():
