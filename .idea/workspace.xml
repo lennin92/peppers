@@ -4,9 +4,8 @@
     <list default="true" id="5204e287-8eea-4482-87b1-7940491dcd9f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/models.py" afterPath="$PROJECT_DIR$/rest/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/tests.py" afterPath="$PROJECT_DIR$/rest/tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/views.py" afterPath="$PROJECT_DIR$/rest/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/peppers/settings.py" afterPath="$PROJECT_DIR$/peppers/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/sampledata.py" afterPath="$PROJECT_DIR$/rest/sampledata.py" />
     </list>
     <ignored path="peppers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,17 +66,17 @@
     <splitter split-orientation="horizontal" split-proportion="0.2728532">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/peppers/settings.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2363">
-                  <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+                <state relative-caret-position="152">
+                  <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/rest/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="663">
@@ -93,7 +92,7 @@
             <entry file="file://$PROJECT_DIR$/requirements.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="68">
-                  <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+                  <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
                   <folding />
                 </state>
               </provider>
@@ -152,8 +151,8 @@
           <file leaf-file-name="sampledata.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/rest/sampledata.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1">
-                  <caret line="604" column="44" lean-forward="true" selection-start-line="604" selection-start-column="44" selection-end-line="604" selection-end-column="44" />
+                <state relative-caret-position="-191">
+                  <caret line="3876" column="55" lean-forward="false" selection-start-line="3876" selection-start-column="55" selection-end-line="3876" selection-end-column="55" />
                   <folding />
                 </state>
               </provider>
@@ -203,11 +202,11 @@
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/peppers/urls.py" />
         <option value="$PROJECT_DIR$/static/rest_framework_swagger/init.js" />
-        <option value="$PROJECT_DIR$/peppers/settings.py" />
         <option value="$PROJECT_DIR$/rest/views.py" />
         <option value="$PROJECT_DIR$/rest/tests.py" />
         <option value="$PROJECT_DIR$/rest/models.py" />
         <option value="$PROJECT_DIR$/rest/sampledata.py" />
+        <option value="$PROJECT_DIR$/peppers/settings.py" />
       </list>
     </option>
   </component>
@@ -282,6 +281,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="migrations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="peppers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="peppers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="peppers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -835,7 +848,14 @@
       <option name="project" value="LOCAL" />
       <updated>1479183735896</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="se agregaron datos a la base y se creo archivo encargado de popular los datos">
+      <created>1479354974208</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1479354974208</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -903,7 +923,8 @@
     <MESSAGE value="Creacion de aplicacion web usando django" />
     <MESSAGE value="Creacion de aplicacion web usando django, se agrega el archivo de requerimientos&#10;la webapp ya es funcional!" />
     <MESSAGE value="se agregó la documentacion utilizando swagger ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="se agregó la documentacion utilizando swagger ui" />
+    <MESSAGE value="se agregaron datos a la base y se creo archivo encargado de popular los datos" />
+    <option name="LAST_COMMIT_MESSAGE" value="se agregaron datos a la base y se creo archivo encargado de popular los datos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1169,24 +1190,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/rest_framework_swagger/swagger-ui.js" />
     <entry file="file://$PROJECT_DIR$/static/rest_framework_swagger/init.js" />
-    <entry file="file://$PROJECT_DIR$/peppers/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2363">
-          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/peppers/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -1202,16 +1207,6 @@
         <state relative-caret-position="0">
           <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rest/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1233,10 +1228,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/rest/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rest/sampledata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="604" column="44" lean-forward="true" selection-start-line="604" selection-start-column="44" selection-end-line="604" selection-end-column="44" />
+        <state relative-caret-position="-191">
+          <caret line="3876" column="55" lean-forward="false" selection-start-line="3876" selection-start-column="55" selection-end-line="3876" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/peppers/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
           <folding />
         </state>
       </provider>
