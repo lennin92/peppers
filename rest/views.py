@@ -6,15 +6,15 @@ from rest_framework import status
 from rest_framework import routers
 from rest_framework.decorators import detail_route
 
-from rest.models import Clasificacion, Imagen, SugerenciaDiagnostico, CorreccionDiagnostico
-from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer
+from rest.models import Clasificacion, Imagen, SugerenciaDiagnostico, CorreccionDiagnostico, Estudio
+from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer, EstudioSerializer
 
 import random
 
 
 def analizar_estudio(id_estudio):
     print("Analizando estudio")
-    imagenes = Imagen.objects.filter(id_estudio=id_estudio)
+    imagenes = Imagen.objects.filter(estudio__id=id_estudio)
     clasificaciones = Clasificacion.objects
     sugerencias = []
     for i in imagenes:
@@ -26,7 +26,9 @@ def analizar_estudio(id_estudio):
     return sugerencias
 
 
-class ClasificacionViewSet(viewsets.ViewSet):
+class ClasificacionViewSet(viewsets.ModelViewSet):
+    queryset = Clasificacion.objects.all()
+    serializer_class = ClasificacionSerializer
 
     def list(self, request):
         queryset = Clasificacion.objects.all()
@@ -40,13 +42,11 @@ class ClasificacionViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
-class SugerenciaDiagnosticoViewSet(viewsets.ViewSet):
-    queryset = SugerenciaDiagnostico.objects.all()
-    serializer_class = SugerenciaSerializer
-    lookup_field = 'id_estudio'
+class SugerenciaDiagnosticoViewSet(viewsets.ModelViewSet):
+    queryset = Estudio.objects.all()
+    serializer_class = EstudioSerializer
 
-    @detail_route:
-    def retrieve(self, request, pk=None):
+    def sugerencia(self, request, pk=None):
         if pk is None:
             raise HttpResponseBadRequest()
         queryset = analizar_estudio(pk)
@@ -54,7 +54,9 @@ class SugerenciaDiagnosticoViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
-class CorreccionDiagnosticoViewSet(viewsets.ViewSet):
+class CorreccionDiagnosticoViewSet(viewsets.ModelViewSet):
+    queryset = CorreccionDiagnostico.objects.all()
+    serializer_class = CorreccionSerializer
 
     def create(self, request):
         user = request.user
@@ -68,8 +70,9 @@ class CorreccionDiagnosticoViewSet(viewsets.ViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
-router = routers.DefaultRouter()
-router.register(r'clasificacion', ClasificacionViewSet, base_name='clasificacion')
-router.register(r'sugerencia', SugerenciaDiagnosticoViewSet, base_name='sugerencia')
-router.register(r'correccion', CorreccionDiagnosticoViewSet, base_name='correccion')
+clasificacion_list = ClasificacionViewSet.as_view({'get': 'list'})
+clasificacion_detail = ClasificacionViewSet.as_view({'get': 'retrieve'})
+sugerencia_detail = SugerenciaDiagnosticoViewSet.as_view({'get': 'sugerencia'})
+correccion_create = CorreccionDiagnosticoViewSet.as_view({'post': 'create'})
+
 

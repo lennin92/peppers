@@ -9,10 +9,15 @@ class Clasificacion(models.Model):
     descripcion = models.TextField()
 
 
+class Estudio(models.Model):
+    id = models.CharField(max_length=55, primary_key=True)
+
+
 class Imagen(models.Model):
     id = models.CharField(max_length=55, primary_key=True)
+    estudio = models.ForeignKey('Estudio', null=True, blank=True, default = None)
+    id_serie = models.CharField(max_length=55)
     nombre = models.CharField(max_length=55)
-    id_estudio = models.CharField(max_length=55)
     id_serie = models.CharField(max_length=55)
 
 
