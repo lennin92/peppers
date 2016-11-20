@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
-from rest.models import Clasificacion, CorreccionDiagnostico, SugerenciaDiagnostico, Imagen
+from rest.models import Clasificacion, CorreccionDiagnostico, SugerenciaDiagnostico, Imagen, Estudio
 
 
 class ClasificacionSerializer(ModelSerializer):
@@ -12,12 +12,20 @@ class ClasificacionSerializer(ModelSerializer):
         )
 
 
+class EstudioSerializer(ModelSerializer):
+    class Meta:
+        model = Estudio
+        fields = (
+            'id', 
+        )
+
+
 class ImagenSerializer(ModelSerializer):
     class Meta:
         model = Imagen
         fields = (
             'nombre',
-            'id_estudio',
+            'estudio',
             'id_serie'
         )
 

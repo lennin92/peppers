@@ -3896,7 +3896,7 @@ TEST_LOG = """
 
 matches = re.finditer(regex, TEST_LOG, re.MULTILINE | re.IGNORECASE)
 
-from rest.models import Imagen
+from rest.models import Imagen, Estudio
 
 
 def populate():
@@ -3908,14 +3908,24 @@ def populate():
 
         groups = match.groupdict()
 
+        # if estudio is already in database skip
+        sc = Estudio.objects.filter(id=groups['studyuid'])
+        if sc.count() <= 0:
+            e = Estudio()
+            e.id = groups['studyuid']
+            e.save()
+        else:
+            e = Estudio.objects.get(id=groups['studyuid'])
+
+        
         # if object is already in database skip
-        sc = Imagen.objects.filter(id=['objectuid'])
+        sc = Imagen.objects.filter(id=groups['objectuid'])
         if sc.count() > 0: continue
 
         i = Imagen()
         i.id = groups['objectuid']
         i.nombre = groups['objectuid']
-        i.id_estudio = groups['studyuid']
+        i.estudio = e
         i.id_serie = groups['objectuid']
         i.save()
 
