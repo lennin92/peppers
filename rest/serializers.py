@@ -26,7 +26,8 @@ class ImagenSerializer(ModelSerializer):
         fields = (
             'nombre',
             'estudio',
-            'id_serie'
+            'id_serie',
+            'imagen_id'
         )
 
 
