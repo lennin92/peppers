@@ -26,8 +26,7 @@ class ImagenSerializer(ModelSerializer):
         fields = (
             'nombre',
             'estudio',
-            'id_serie',
-            'imagen_id'
+            'id_serie'
         )
 
 
@@ -46,13 +45,12 @@ class SugerenciaSerializer(ModelSerializer):
 
 
 class CorreccionSerializer(ModelSerializer):
-    sugerencia = PrimaryKeyRelatedField(many=False, read_only=True)
     clasificacion_correcta = ClasificacionSerializer(many=False)
 
     class Meta:
         model = CorreccionDiagnostico
         fields = (
-            'sugerencia',
+            'sugerencia_id',
             'clasificacion_correcta',
             'observacion'
         )
