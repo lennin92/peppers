@@ -11,6 +11,9 @@ class Clasificacion(models.Model):
 
 class Estudio(models.Model):
     id = models.CharField(max_length=55, primary_key=True)
+    
+    class Meta:
+        db_table = 'study'
 
 
 class Imagen(models.Model):
