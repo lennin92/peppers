@@ -19,7 +19,7 @@ el parametro estudio es un diccionario con el siguiente esquema:
 """
 def analizar_estudio(estudio):
     print("Analizando estudio")
-    imagenes = Imagen.objects.filter(estudio__id=estudio['studyUUID'])
+    imagenes = Imagen.objects.filter(series__estudio__estudio=estudio['studyUID'])
     clasificaciones = Clasificacion.objects
     sugerencias = []
     for i in imagenes:
@@ -53,9 +53,7 @@ class SugerenciaDiagnosticoViewSet(viewsets.ModelViewSet):
     serializer_class = StudyRequestSerializer
     permission_classes = (permissions.AllowAny,)
 
-    def sugerencia(self, request, pk=None):
-        if pk is None:
-            raise HttpResponseBadRequest()
+    def sugerencia(self, request):
         request_serializer = StudyRequestSerializer(many=False, data=request.data)
         if(request_serializer.is_valid()):
             queryset = analizar_estudio(request_serializer.data)
