@@ -1,6 +1,5 @@
 import re
 
-regex = r"studyUID=(?P<studyuid>[0-9.]*)&seriesUID=(?P<seriesuid>[0-9.]*)&objectUID=(?P<objectuid>[0-9.]*)"
 
 
 TEST_LOG = """
@@ -3894,10 +3893,12 @@ TEST_LOG = """
 
 """
 
+
+from rest.models import Imagen, Estudio, Series
+
+
+regex = r"studyUID=(?P<studyuid>[0-9.]*)&seriesUID=(?P<seriesuid>[0-9.]*)&objectUID=(?P<objectuid>[0-9.]*)"
 matches = re.finditer(regex, TEST_LOG, re.MULTILINE | re.IGNORECASE)
-
-from rest.models import Imagen, Estudio
-
 
 def populate():
     for matchNum, match in enumerate(matches):
@@ -3909,24 +3910,33 @@ def populate():
         groups = match.groupdict()
 
         # if estudio is already in database skip
-        sc = Estudio.objects.filter(id=groups['studyuid'])
+        sc = Estudio.objects.filter(estudio=groups['studyuid'])
         if sc.count() <= 0:
             e = Estudio()
-            e.id = groups['studyuid']
+            e.estudio = groups['studyuid']
             e.save()
         else:
-            e = Estudio.objects.get(id=groups['studyuid'])
-
+            # e = Estudio.objects.get(id=groups['studyuid'])
+            e = sc[0]
         
+        # if serie  is already in database skip
+        sec = Series.objects.filter(estudio=e, series=groups['seriesuid'])
+        if sec.count() <= 0:
+            s = Series()
+            s.estudio=e
+            s.series=groups['seriesuid']
+            s.save()
+        else:
+            # e = Estudio.objects.get(id=groups['studyuid'])
+            s = sec[0]
+            
         # if object is already in database skip
-        sc = Imagen.objects.filter(id=groups['objectuid'])
+        sc = Imagen.objects.filter(series=s, objectUID=groups['objectuid'])
         if sc.count() > 0: continue
-
         i = Imagen()
-        i.id = groups['objectuid']
-        i.nombre = groups['objectuid']
-        i.estudio = e
-        i.id_serie = groups['objectuid']
+        i.series=s
+        i.objectUID=groups['objectuid']
+        i.nombre=groups['objectuid']
         i.save()
 
 

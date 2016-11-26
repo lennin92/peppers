@@ -10,18 +10,28 @@ class Clasificacion(models.Model):
 
 
 class Estudio(models.Model):
-    id = models.CharField(max_length=55, primary_key=True)
+    estudio = models.CharField(max_length=55)
     
-    class Meta:
-        db_table = 'study'
+    def studyUID(self): return self.estudio
 
+
+class Series(models.Model):
+    estudio = models.ForeignKey('Estudio')
+    series = models.CharField(max_length=55)
+    
+    def studyUID(self): return self.estudio.studyUID()
+    
+    def seriesUID(self): return self.series
+    
 
 class Imagen(models.Model):
-    id = models.CharField(max_length=55, primary_key=True)
-    estudio = models.ForeignKey('Estudio', null=True, blank=True, default = None)
-    id_serie = models.CharField(max_length=55)
-    nombre = models.CharField(max_length=55)
-    id_serie = models.CharField(max_length=55)
+    series = models.ForeignKey('Series')
+    nombre = models.CharField(max_length=10)
+    objectUID = models.CharField(max_length=55)
+    
+    def studyUID(self): return self.series.studyUID()
+    
+    def seriesUID(self): return self.series.seriesUID()    
 
 
 class SugerenciaDiagnostico(models.Model):
@@ -37,8 +47,4 @@ class CorreccionDiagnostico(models.Model):
     usuario = models.ForeignKey(User)
     observacion = models.TextField()
     fecha_hora = models.DateTimeField()
-
-
-
-
 

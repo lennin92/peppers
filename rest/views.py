@@ -7,14 +7,19 @@ from rest_framework import routers
 from rest_framework.decorators import detail_route
 
 from rest.models import Clasificacion, Imagen, SugerenciaDiagnostico, CorreccionDiagnostico, Estudio
-from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer, EstudioSerializer
+from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer, StudyRequestSerializer
 
 import random
 from rest_framework import permissions
 
-def analizar_estudio(id_estudio):
+""" 
+Funcion que ejecuta el proceso de analisis sobre todo un estudio
+el parametro estudio es un diccionario con el siguiente esquema:
+
+"""
+def analizar_estudio(estudio):
     print("Analizando estudio")
-    imagenes = Imagen.objects.filter(estudio__id=id_estudio)
+    imagenes = Imagen.objects.filter(estudio__id=estudio['studyUUID'])
     clasificaciones = Clasificacion.objects
     sugerencias = []
     for i in imagenes:
@@ -45,15 +50,21 @@ class ClasificacionViewSet(viewsets.ModelViewSet):
 
 class SugerenciaDiagnosticoViewSet(viewsets.ModelViewSet):
     queryset = Estudio.objects.all()
-    serializer_class = EstudioSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = StudyRequestSerializer
+    permission_classes = (permissions.AllowAny,)
 
     def sugerencia(self, request, pk=None):
         if pk is None:
             raise HttpResponseBadRequest()
-        queryset = analizar_estudio(pk)
-        serializer = SugerenciaSerializer(queryset, many=True)
-        return Response(serializer.data)
+        request_serializer = StudyRequestSerializer(many=False, data=request.data)
+        if(request_serializer.is_valid()):
+            queryset = analizar_estudio(request_serializer.data)
+            serializer = SugerenciaSerializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+        
 
 
 class CorreccionDiagnosticoViewSet(viewsets.ModelViewSet):
@@ -65,6 +76,7 @@ class CorreccionDiagnosticoViewSet(viewsets.ModelViewSet):
         serializer = CorreccionSerializer(many=True, data=request.data)
         if serializer.is_valid():
             c = self.get_object()
+            c.user = user
             c.save()
             return Response({'status': 'correccion almacenada'})
         else:
@@ -74,7 +86,7 @@ class CorreccionDiagnosticoViewSet(viewsets.ModelViewSet):
 
 clasificacion_list = ClasificacionViewSet.as_view({'get': 'list'})
 clasificacion_detail = ClasificacionViewSet.as_view({'get': 'retrieve'})
-sugerencia_detail = SugerenciaDiagnosticoViewSet.as_view({'get': 'sugerencia'})
+sugerencia_detail = SugerenciaDiagnosticoViewSet.as_view({'post': 'sugerencia'})
 correccion_create = CorreccionDiagnosticoViewSet.as_view({'post': 'create'})
 
 
