@@ -6,7 +6,7 @@ rest_urls = [
     url(r'^clasificacion/$', clasificacion_list, name='clasificacion_list'),
     url(r'^clasificacion/(?P<pk>[0-9]+)/$', 
 		clasificacion_detail, name='clasificacion_detail'),
-    url(r'^estudio/(?P<pk>[0-9.,_\ ]*)/sugerencia/$', 
+    url(r'^estudio/sugerencia/$', 
 		sugerencia_detail, name='sugerencia_detail'),
     url(r'^correccion/$', correccion_create, name='correccion_create'),
 ]

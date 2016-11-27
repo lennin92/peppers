@@ -1,7 +1,18 @@
-from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
+from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, ListField, Serializer
 from rest.models import Clasificacion, CorreccionDiagnostico, SugerenciaDiagnostico, Imagen, Estudio
 
+class SeriesRequestSerializer(Serializer):
+    seriesUID = CharField(max_length=55, allow_blank=False, trim_whitespace=True)
+    objects = ListField(
+            child=CharField(max_length=55, allow_blank=False, trim_whitespace=True)
+        )
+    
 
+class StudyRequestSerializer(Serializer):
+    studyUID = CharField(max_length=55, allow_blank=False, trim_whitespace=True)
+    series = SeriesRequestSerializer(many=True)
+
+    
 class ClasificacionSerializer(ModelSerializer):
     class Meta:
         model = Clasificacion
@@ -11,22 +22,14 @@ class ClasificacionSerializer(ModelSerializer):
             'descripcion'
         )
 
-
-class EstudioSerializer(ModelSerializer):
-    class Meta:
-        model = Estudio
-        fields = (
-            'id', 
-        )
-
-
 class ImagenSerializer(ModelSerializer):
     class Meta:
         model = Imagen
         fields = (
-            'nombre',
-            'estudio',
-            'id_serie'
+            'studyUID',
+            'seriesUID',
+            'objectUID',
+            'nombre'
         )
 
 
@@ -45,13 +48,12 @@ class SugerenciaSerializer(ModelSerializer):
 
 
 class CorreccionSerializer(ModelSerializer):
-    sugerencia = PrimaryKeyRelatedField(many=False, read_only=True)
     clasificacion_correcta = ClasificacionSerializer(many=False)
 
     class Meta:
         model = CorreccionDiagnostico
         fields = (
-            'sugerencia',
+            'sugerencia_id',
             'clasificacion_correcta',
             'observacion'
         )

@@ -1,0 +1,1 @@
+Folder to temporary store dicom files
