@@ -31,31 +31,31 @@ def analizar_estudio(estudio):
 
 
 def get_study_object(studyUID):
-    s = Estudio.objects.get_or_create(
+    s,created = Estudio.objects.get_or_create(
         estudio=studyUID
-    )[0]
-    s.save()
+    )
+    if not created: s.save()
     return s
 
 
 def get_series_object(studyUID, seriesUID):
-    st = get_study_object(studyUID)
-    s = Series.objects.get_or_create(
+    st= get_study_object(studyUID)
+    s,created = Series.objects.get_or_create(
         estudio=st,
         series=seriesUID
-    )[0]
-    s.save()
+    )
+    if not created: s.save()
     return s
 
 
 def get_image_object(studyUID, seriesUID, objectUID):
     se = get_series_object(studyUID, seriesUID)
-    i = Imagen.objects.get_or_create(
+    i,created = Imagen.objects.get_or_create(
         series=se,
         objectUID=objectUID,
         nombre=objectUID[0:9]
-    )[0]
-    i.save()
+    )
+    if not created: i.save()
     return i
 
 
