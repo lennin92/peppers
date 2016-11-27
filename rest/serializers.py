@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField, CharField, ListField, Serializer
+from rest_framework.serializers import ModelSerializer, Serializer, CharField, ListField
 from rest.models import Clasificacion, CorreccionDiagnostico, SugerenciaDiagnostico, Imagen, Estudio
 
 class SeriesRequestSerializer(Serializer):
@@ -6,13 +6,13 @@ class SeriesRequestSerializer(Serializer):
     objects = ListField(
             child=CharField(max_length=55, allow_blank=False, trim_whitespace=True)
         )
-    
+
 
 class StudyRequestSerializer(Serializer):
     studyUID = CharField(max_length=55, allow_blank=False, trim_whitespace=True)
     series = SeriesRequestSerializer(many=True)
 
-    
+
 class ClasificacionSerializer(ModelSerializer):
     class Meta:
         model = Clasificacion
@@ -21,6 +21,7 @@ class ClasificacionSerializer(ModelSerializer):
             'etiqueta',
             'descripcion'
         )
+
 
 class ImagenSerializer(ModelSerializer):
     class Meta:
@@ -40,7 +41,6 @@ class SugerenciaSerializer(ModelSerializer):
     class Meta:
         model = SugerenciaDiagnostico
         fields = (
-            'id',
             'imagen',
             'clasificacion',
             'es_correcto'
@@ -48,12 +48,13 @@ class SugerenciaSerializer(ModelSerializer):
 
 
 class CorreccionSerializer(ModelSerializer):
+    imagen = ImagenSerializer(many=False)
     clasificacion_correcta = ClasificacionSerializer(many=False)
 
     class Meta:
         model = CorreccionDiagnostico
         fields = (
-            'sugerencia_id',
+            'imagen',
             'clasificacion_correcta',
             'observacion'
         )

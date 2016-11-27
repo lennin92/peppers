@@ -38,13 +38,13 @@ class SugerenciaDiagnostico(models.Model):
     imagen = models.ForeignKey('Imagen')
     clasificacion = models.ForeignKey('Clasificacion')
     es_correcto = models.BooleanField(default=True)
-    fecha_hora = models.DateTimeField(auto_now_add=True)
+    fecha_hora = models.DateTimeField(auto_now_add=True, blank=True)
 
 
 class CorreccionDiagnostico(models.Model):
-    sugerencia = models.ForeignKey('SugerenciaDiagnostico')
+    imagen = models.ForeignKey('Imagen')
     clasificacion_correcta = models.ForeignKey('Clasificacion')
-    usuario = models.ForeignKey(User)
+    usuario = models.ForeignKey(User, blank=True)
     observacion = models.TextField()
-    fecha_hora = models.DateTimeField()
+    fecha_hora = models.DateTimeField(auto_now_add=True, blank=True)
 
