@@ -1,62 +1,12 @@
 from django.shortcuts import get_object_or_404
-from django.http.response import HttpResponseBadRequest
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 
-from rest.models import Clasificacion, Imagen, SugerenciaDiagnostico, CorreccionDiagnostico, Estudio, Series
+from rest.models import Clasificacion, CorreccionDiagnostico, Estudio
 from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer, StudyRequestSerializer
-
-import random
+from rest import utils
 from rest_framework import permissions
-
-
-def analizar_estudio(estudio):
-    """
-    Funcion que ejecuta el proceso de analisis sobre todo un estudio
-    el parametro estudio es un diccionario con el siguiente esquema:
-
-    """
-    print("Analizando estudio")
-    imagenes = Imagen.objects.filter(series__estudio__estudio=estudio['studyUID'])
-    clasificaciones = Clasificacion.objects
-    sugerencias = []
-    for i in imagenes:
-        s = SugerenciaDiagnostico()
-        s.imagen = i
-        s.clasificacion = clasificaciones.get(id=random.randint(0, 4))
-        s.save()
-        sugerencias.append(s)
-    return sugerencias
-
-
-def get_study_object(studyUID):
-    s,created = Estudio.objects.get_or_create(
-        estudio=studyUID
-    )
-    if not created: s.save()
-    return s
-
-
-def get_series_object(studyUID, seriesUID):
-    st= get_study_object(studyUID)
-    s,created = Series.objects.get_or_create(
-        estudio=st,
-        series=seriesUID
-    )
-    if not created: s.save()
-    return s
-
-
-def get_image_object(studyUID, seriesUID, objectUID):
-    se = get_series_object(studyUID, seriesUID)
-    i,created = Imagen.objects.get_or_create(
-        series=se,
-        objectUID=objectUID,
-        nombre=objectUID[0:9]
-    )
-    if not created: i.save()
-    return i
 
 
 class ClasificacionViewSet(viewsets.ModelViewSet):
@@ -84,7 +34,7 @@ class SugerenciaDiagnosticoViewSet(viewsets.ModelViewSet):
     def sugerencia(self, request):
         request_serializer = StudyRequestSerializer(many=False, data=request.data)
         if request_serializer.is_valid():
-            queryset = analizar_estudio(request_serializer.data)
+            queryset = utils.analizar_estudio(request_serializer.data)
             serializer = SugerenciaSerializer(queryset, many=True)
             return Response(serializer.data)
         else:
@@ -105,7 +55,7 @@ class CorreccionDiagnosticoViewSet(viewsets.ModelViewSet):
             i = d['imagen']
             cl = d['clasificacion_correcta']
             c = CorreccionDiagnostico()
-            c.imagen = get_image_object(i['studyUID'], i['seriesUID'], i['objectUID'])
+            c.imagen = utils.get_image_object(i['studyUID'], i['seriesUID'], i['objectUID'])
             # c.usuario = user
             c.observacion = d['observacion']
             c.clasificacion_correcta = Clasificacion.objects.get(id=cl['id'])

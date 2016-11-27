@@ -1,14 +1,14 @@
-{
-    "clasificacion_correcta": {
-        "id": 0,
-        "etiqueta": "Imagen en blanco",
-        "descripcion": "Imagen en blanco"
-    },
-    "observacion": "observacion asdasdasda",
-    "imagen": {
-        "studyUID": "1.3.12.2.1107.5.1.4.66137.30000016060518460717200000001",
-        "seriesUID": "1.3.12.2.1107.5.1.4.66137.30000016060518375892400000010",
-        "objectUID": "1.3.12.2.1107.5.1.4.66137.30000016060518375892400000011",
-        "nombre": "1.307"
-    }
-}
+  {
+      "clasificacion_correcta": {
+          "id": 0,
+          "etiqueta": "Imagen en blanco",
+          "descripcion": "Imagen en blanco"
+      },
+      "observacion": "observacion asdasdasda",
+      "imagen": {
+          "studyUID": "1.3.12.2.1107.5.1.4.66137.30000016060518460717200000001",
+          "seriesUID": "1.3.12.2.1107.5.1.4.66137.30000016060518375892400000010",
+          "objectUID": "1.3.12.2.1107.5.1.4.66137.30000016060518375892400000011",
+          "nombre": "1.307"
+      }
+  }

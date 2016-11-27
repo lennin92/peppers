@@ -139,9 +139,11 @@ LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
 
 
-
 #SIADTACC SETTINGS
 DICOM_TMP_PATH = os.path.join(BASE_DIR, 'tmp')
+DCM4CHEE_HOSTDIR = "HTTP://192.168.2.2:8080/"
+DICOM_PNG_URL_PATTERN = "/wado?studyUID=%(studyuid)s&seriesUID=%(seriesuid)s" \
+                "&objectUID=%(objectuid)s&contentType=image/png&requestType=WADO"
 
 
 
