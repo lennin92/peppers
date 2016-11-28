@@ -3,3 +3,6 @@ djangorestframework==3.5.3
 numpy==1.11.2
 Pillow==3.4.2
 django_rest_swagger==2.1.0
+requests==2.11.1
+nunmpy
+pandas

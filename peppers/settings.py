@@ -145,6 +145,10 @@ DCM4CHEE_HOSTDIR = "HTTP://192.168.2.2:8080/"
 DICOM_PNG_URL_PATTERN = "/wado?studyUID=%(studyuid)s&seriesUID=%(seriesuid)s" \
                 "&objectUID=%(objectuid)s&contentType=image/png&requestType=WADO"
 
+CAFFE_MODEL = os.path.join(BASE_DIR, 'model/peppers.prototxt')
+CAFFE_WEIGHTS = os.path.join(BASE_DIR, 'model/peppers.caffemodel')
+CAFFE_GPU = True
+
 
 
 
