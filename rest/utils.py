@@ -17,7 +17,7 @@ from PIL import Image
 class Classifier(object):
     net = None
     labels = []
-    clasifications = {}
+    classifications = {}
 
     def get_classification(self, id):
         return self.classifications[id]
@@ -35,8 +35,8 @@ class Classifier(object):
                 'name': c.etiqueta
             } for c in self.clasificaciones
         ])
-        self.clasifications = {c.id:c for c in self.clasificaciones}
-        self.labels = labels_df.sort('synset_id')['name'].values
+        self.classifications = {c.id:c for c in self.clasificaciones}
+        self.labels = labels_df.sort_values(by='synset_id')['name'].values
         logging.info('Loaded Network')
 
     def forward(self):
@@ -86,10 +86,10 @@ def get_png(studyUID, seriesUID, objectUID):
     rel_path = settings.DICOM_PNG_URL_PATTERN%{'studyuid': studyUID,
                                               'seriesuid': seriesUID,
                                               'objectuid': objectUID }
-    dcm_path = url.urljoin(settings.DCM4CHEE_HOSTDIR, rel_path + '.png')
+    dcm_path = url.urljoin(settings.DCM4CHEE_HOSTDIR, rel_path)
     print(dcm_path)
     r = requests.get(dcm_path, stream=True)
-    f_path = os.path.join(settings.DICOM_TMP_PATH, objectUID)
+    f_path = os.path.join(settings.DICOM_TMP_PATH, objectUID+ '.png')
     if r.status_code == 200:
         with open(f_path, 'wb') as f:
             for chunk in r.iter_content(256):
