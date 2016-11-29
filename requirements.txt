@@ -6,3 +6,5 @@ django_rest_swagger==2.1.0
 requests==2.11.1
 nunmpy
 pandas
+pydicom
+pypng
