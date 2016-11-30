@@ -127,7 +127,8 @@ def analizar_estudio(estudio):
                 pred = random.randint(0, 4)
             s.clasificacion = CLASSIFIER.get_classification(pred)
             s.save()
-            sugerencias.append(s)
+            if pred == 3:
+                sugerencias.append(s)
     return sugerencias
 
 

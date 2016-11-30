@@ -7,7 +7,7 @@ from rest.models import Clasificacion, CorreccionDiagnostico, Estudio
 from rest.serializers import ClasificacionSerializer, SugerenciaSerializer, CorreccionSerializer, StudyRequestSerializer
 from rest import utils
 from rest_framework import permissions
-
+import json
 
 class ClasificacionViewSet(viewsets.ModelViewSet):
     queryset = Clasificacion.objects.all()
@@ -38,7 +38,7 @@ class SugerenciaDiagnosticoViewSet(viewsets.ModelViewSet):
         if request_serializer.is_valid():
             queryset = utils.analizar_estudio(request_serializer.data)
             serializer = SugerenciaSerializer(queryset, many=True)
-            print(serializer.data)
+            print(json.dumps(serializer.data))
             return Response(serializer.data)
         else:
             return Response({'error': 'Invalid request body'},
