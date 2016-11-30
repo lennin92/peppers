@@ -149,6 +149,9 @@ CAFFE_MODEL = os.path.join(BASE_DIR, 'model/peppers.prototxt')
 CAFFE_WEIGHTS = os.path.join(BASE_DIR, 'model/peppers.caffemodel')
 CAFFE_GPU = True
 
+IMG_HEIGTH = 256
+IMG_WIDTH = 256
+
 
 
 

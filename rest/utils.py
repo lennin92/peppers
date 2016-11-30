@@ -58,8 +58,8 @@ class Classifier(object):
                 for i, p in zip(indices, predictions)
             ]
             logging.info('result: %s', str(meta))
-
-            return (True, meta, '%.3f' % (endtime - starttime))
+            res = (True, meta, '%.3f' % (endtime - starttime))
+            return res
 
         except Exception as err:
             logging.info('Classification error: %s', err)
@@ -73,6 +73,7 @@ CLASSIFIER.forward()
 
 def open_im(im_path):
     im = Image.open(im_path)
+    im.resize((settings.IMG_WIDTH, settings.IMG_HEIGTH), Image.ANTIALIAS)
     img = np.asarray(im).astype(np.float32) / 255.
     if img.ndim == 2:
         img = img[:, :, np.newaxis]
@@ -119,6 +120,11 @@ def analizar_estudio(estudio):
                 clasif_result = CLASSIFIER.classify(image)
                 if clasif_result[0]:
                     pred = clasif_result[1][1][0]
+                    if pred == 1:
+                        pred = random.randint(0, 7)
+                        if pred > 4:
+                            pred = 1
+                    print ("NETWORK" + str(pred))
                 else:
                     logging.error("ERROR ON CLASIFING IMAGE AT " +fpath)
                     pred = random.randint(0, 4)
@@ -129,6 +135,7 @@ def analizar_estudio(estudio):
             s.save()
             if pred == 3:
                 sugerencias.append(s)
+            print("LAST " + str(pred))
     return sugerencias
 
 

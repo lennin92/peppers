@@ -9,6 +9,7 @@ from rest import utils
 from rest_framework import permissions
 import json
 
+
 class ClasificacionViewSet(viewsets.ModelViewSet):
     queryset = Clasificacion.objects.all()
     serializer_class = ClasificacionSerializer
