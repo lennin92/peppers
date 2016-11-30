@@ -32,10 +32,13 @@ class SugerenciaDiagnosticoViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
 
     def sugerencia(self, request):
+        print("REQUEST DATA: ")
+        print(request.data)
         request_serializer = StudyRequestSerializer(many=False, data=request.data)
         if request_serializer.is_valid():
             queryset = utils.analizar_estudio(request_serializer.data)
             serializer = SugerenciaSerializer(queryset, many=True)
+            print(serializer.data)
             return Response(serializer.data)
         else:
             return Response({'error': 'Invalid request body'},
