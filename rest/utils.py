@@ -87,7 +87,6 @@ def get_png(studyUID, seriesUID, objectUID):
                                               'seriesuid': seriesUID,
                                               'objectuid': objectUID }
     dcm_path = url.urljoin(settings.DCM4CHEE_HOSTDIR, rel_path)
-    print(dcm_path)
     r = requests.get(dcm_path, stream=True)
     f_path = os.path.join(settings.DICOM_TMP_PATH, objectUID+ '.png')
     if r.status_code == 200:
@@ -106,31 +105,29 @@ def analizar_estudio(estudio):
 
     """
     print("Analizando estudio")
-    ## 1- CREAR LOS OBJETOS DE ESTUDIO
-    ## 2- CREAR LOS OBJETOS DE SERIE
-    ## 3- CREAR LOS OBJETOS DE IMAGEN
-    
-    imagenes = Imagen.objects.filter(series__estudio__estudio=estudio['studyUID'])
+    st = get_study_object(estudio['studyUID'])
     sugerencias = []
-    for i in imagenes:
-        s = SugerenciaDiagnostico()
-        s.imagen = i
-        fpath = get_png(i.studyUID(),i.seriesUID(),i.objectUID)
-        if fpath is not None:
-            print("DOWNLOADED " + fpath)
-            image = open_im(fpath)
-            clasif_result = CLASSIFIER.classify(image)
-            if clasif_result[0]:
-                pred = clasif_result[1][1][0]
+    for serie in estudio['series']:
+        se = get_series_object(st.estudio, serie['seriesUID'])
+        for objectUID in serie['objects']:
+            im = get_image_object(st.estudio, se.series, objectUID)
+            s = SugerenciaDiagnostico()
+            s.imagen = im
+            fpath = get_png(im.studyUID(),im.seriesUID(),im.objectUID)
+            if fpath is not None:
+                image = open_im(fpath)
+                clasif_result = CLASSIFIER.classify(image)
+                if clasif_result[0]:
+                    pred = clasif_result[1][1][0]
+                else:
+                    logging.error("ERROR ON CLASIFING IMAGE AT " +fpath)
+                    pred = random.randint(0, 4)
             else:
-                logging.error("ERROR ON CLASIFING IMAGE AT " +fpath)
+                logging.error("ERROR GETTING IMAGE for " + im.objectUID)
                 pred = random.randint(0, 4)
-        else:
-            logging.error("ERROR GETTING IMAGE for " + i.objectUID)
-            pred = random.randint(0, 4)
-        s.clasificacion = CLASSIFIER.get_classification(pred)
-        s.save()
-        sugerencias.append(s)
+            s.clasificacion = CLASSIFIER.get_classification(pred)
+            s.save()
+            sugerencias.append(s)
     return sugerencias
 
 
@@ -150,40 +147,32 @@ def get_study_object(studyUID):
         s = Estudio.objects.get(estudio=studyUID)
     except Estudio.DoesNotExist:
         s = Estudio()
-        s.estudio=studyUID
+        s.estudio = studyUID
         s.save()
     return s
 
 
 def get_series_object(studyUID, seriesUID):
-    st = get_study_object(studyUID)
+    st= get_study_object(studyUID)
     try:
-        s = Series.objects.get(estudio=st, series=seriesUID)
-    except Estudio.DoesNotExist:
-        s = Series()
-        s.estudio=st
-        s.series=seriesUID
-        s.save()
-    return s
+        se = Series.objects.get(estudio=st, series=seriesUID)
+    except Series.DoesNotExist:
+        se = Series()
+        se.estudio = st
+        se.series = seriesUID
+        se.save()
+    return se
 
 
 def get_image_object(studyUID, seriesUID, objectUID, nombre=None):
-    se = get_series_object(studyUID, seriesUID)
-    if nombre==None: nombre=objectUID[0:9]
     try:
-        i = Imagen.objects.get(series=se, objectUID=objectUID)
-    except Estudio.DoesNotExist:
-        i = Imagen()
-        i.series=se
-        i.objectUID=objectUID
-    i.nombre=nombre
-    i.save()
-    return s
-    
-    i,created = Imagen.objects.get_or_create(
-        series=se,
-        objectUID=objectUID,
-        nombre=objectUID[0:9]
-    )
-    # if not created: i.save()
-    return i
+        im = Imagen.objects.get(series=se, objectUID=objectUID)
+    except Imagen.DoesNotExist:
+        im = Imagen()
+        im.series = se
+        im.objectUID = objectUID
+        if nombre is None: nombre = objectUID[0:9]
+        im.nombre = nombre
+        im.save()
+    return im
+

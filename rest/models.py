@@ -14,6 +14,9 @@ class Estudio(models.Model):
     
     def studyUID(self): return self.estudio
 
+    class __Meta__:
+        unique_together = (("estudio", ),)
+
 
 class Series(models.Model):
     estudio = models.ForeignKey('Estudio')
@@ -22,7 +25,9 @@ class Series(models.Model):
     def studyUID(self): return self.estudio.studyUID()
     
     def seriesUID(self): return self.series
-    
+
+    class __Meta__:
+        unique_together = (("estudio", "series"),)
 
 class Imagen(models.Model):
     series = models.ForeignKey('Series')
@@ -31,7 +36,10 @@ class Imagen(models.Model):
     
     def studyUID(self): return self.series.studyUID()
     
-    def seriesUID(self): return self.series.seriesUID()    
+    def seriesUID(self): return self.series.seriesUID()
+
+    class __Meta__:
+        unique_together = (("objectUID", "series"),)
 
 
 class SugerenciaDiagnostico(models.Model):
