@@ -106,6 +106,10 @@ def analizar_estudio(estudio):
 
     """
     print("Analizando estudio")
+    ## 1- CREAR LOS OBJETOS DE ESTUDIO
+    ## 2- CREAR LOS OBJETOS DE SERIE
+    ## 3- CREAR LOS OBJETOS DE IMAGEN
+    
     imagenes = Imagen.objects.filter(series__estudio__estudio=estudio['studyUID'])
     sugerencias = []
     for i in imagenes:
@@ -130,26 +134,52 @@ def analizar_estudio(estudio):
     return sugerencias
 
 
+def get_or_create_Object(_class_, object, *args, **kwars):
+    try:
+        obj = _class_.objects.filter(*args,**kwars)
+    except SomeModel.DoesNotExist:
+        object.save()
+        obj = object
+    return obj
+    
+    
+    
+
 def get_study_object(studyUID):
-    s,created = Estudio.objects.get_or_create(
-        estudio=studyUID
-    )
-    # if not created: s.save()
+    try:
+        s = Estudio.objects.get(estudio=studyUID)
+    except Estudio.DoesNotExist:
+        s = Estudio()
+        s.estudio=studyUID
+        s.save()
     return s
 
 
 def get_series_object(studyUID, seriesUID):
-    st= get_study_object(studyUID)
-    s,created = Series.objects.get_or_create(
-        estudio=st,
-        series=seriesUID
-    )
-    # if not created: s.save()
+    st = get_study_object(studyUID)
+    try:
+        s = Series.objects.get(estudio=st, series=seriesUID)
+    except Estudio.DoesNotExist:
+        s = Series()
+        s.estudio=st
+        s.series=seriesUID
+        s.save()
     return s
 
 
-def get_image_object(studyUID, seriesUID, objectUID):
+def get_image_object(studyUID, seriesUID, objectUID, nombre=None):
     se = get_series_object(studyUID, seriesUID)
+    if nombre==None: nombre=objectUID[0:9]
+    try:
+        i = Imagen.objects.get(series=se, objectUID=objectUID)
+    except Estudio.DoesNotExist:
+        i = Imagen()
+        i.series=se
+        i.objectUID=objectUID
+    i.nombre=nombre
+    i.save()
+    return s
+    
     i,created = Imagen.objects.get_or_create(
         series=se,
         objectUID=objectUID,
