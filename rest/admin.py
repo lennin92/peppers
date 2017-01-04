@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from rest.models import Clasificacion
+
+
+class ClasificacionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'etiqueta', 'descripcion')
+
+admin.site.register(Clasificacion, ClasificacionAdmin)
