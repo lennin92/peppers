@@ -1,6 +1,6 @@
 Cython==0.24
 Pillow==2.6.1
-PyYAML==3.11
+PyYAML==5.4
 Pygments==2.0.1
 Pyste==0.9.10
 SOAPpy==0.12.22
