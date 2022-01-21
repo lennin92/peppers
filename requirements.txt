@@ -17,7 +17,7 @@ defusedxml==0.4.1
 docutils==0.12
 h5py==2.6.0
 html5lib==0.999
-ipython==4.2.0
+ipython==7.16.3
 ipython-genutils==0.1.0
 leveldb==0.193
 matplotlib==1.5.1
