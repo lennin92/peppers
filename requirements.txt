@@ -30,7 +30,7 @@ pathlib2==2.1.0
 pexpect==3.2
 pickleshare==0.7.2
 ply==3.4
-protobuf==2.6.1
+protobuf==3.15.0
 pyOpenSSL==0.14
 pyasn1==0.1.7
 pycparser==2.10
