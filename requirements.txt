@@ -16,7 +16,7 @@ decorator==4.0.9
 defusedxml==0.4.1
 docutils==0.12
 h5py==2.6.0
-html5lib==0.999
+html5lib==0.99999999
 ipython==4.2.0
 ipython-genutils==0.1.0
 leveldb==0.193
